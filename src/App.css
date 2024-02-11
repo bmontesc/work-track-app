@@ -17,3 +17,7 @@ th.fixed-assets-header {
 th.accountable-header {
     background-color: #f99596 !important
 }
+
+td.blocked {
+    background-color:#ffe7ba !important
+}

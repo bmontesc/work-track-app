@@ -1,8 +1,6 @@
-import * as React from 'react';
-import { Table, Radio, Typography } from 'antd';
+import { React, useState } from 'react';
+import { Table, Radio } from 'antd';
 import { dataSource } from '../../api/data'
-
-const { Text } = Typography;
 
 const columns = [
     {
@@ -58,24 +56,32 @@ const columns = [
                     dataIndex: 'sit_ext',
                     key: 'sit_ext',
                     width: 65,
+                    onCell: (record) =>({
+                        className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },
                 {
                     title: 'Con.',
                     dataIndex: 'con_ext',
                     key: 'con_ext',
-                    width: 70
+                    width: 70,
+                    onCell: (record) =>({
+                        className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 }, 
                 {
                     title: 'TE',
                     dataIndex: 'te_ext',
                     key: 'te_ext',
-                    width: 100
+                    width: 100,
+                    onCell: (record) =>({
+                        className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },  
                 {
                     title: 'TI',
                     dataIndex: 'ti_ext',
                     key: 'ti_ext',
-                    width: 100
+                    width: 100,
+                    onCell: (record) =>({
+                        className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },  
                 {
                     title: 'TP',
@@ -83,13 +89,17 @@ const columns = [
                     key: 'tp_ext',
                     width: 100,
                     onCell: (record) =>({
-                        className: record.tp_ext.startsWith('-') ? 'red-text' : ''})
+                        className: record.sit_ext !== 'B' ?
+                                 ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
+                                 (record.tp_ext.startsWith('-') ? 'red-text blocked' : 'blocked')}),
                 },    
                 {
                     title: 'Salida',
                     dataIndex: 'exit_ext',
                     key: 'exit_ext',
-                    width: 110
+                    width: 110,
+                    onCell: (record) =>({
+                        className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 }               
             ]
         },
@@ -101,25 +111,33 @@ const columns = [
                     title: 'Sit.',
                     dataIndex: 'sit_iva',
                     key: 'sit_iva',
-                    width: 65
+                    width: 65,
+                    onCell: (record) =>({
+                        className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },
                 {
                     title: 'Con.',
                     dataIndex: 'con_iva',
                     key: 'con_iva',
-                    width: 70
+                    width: 70,
+                    onCell: (record) =>({
+                        className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 }, 
                 {
                     title: 'TE',
                     dataIndex: 'te_iva',
                     key: 'te_iva',
-                    width: 100
+                    width: 100,
+                    onCell: (record) =>({
+                        className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },  
                 {
                     title: 'TI',
                     dataIndex: 'ti_iva',
                     key: 'ti_iva',
-                    width: 100
+                    width: 100,
+                    onCell: (record) =>({
+                        className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },  
                 {
                     title: 'TP',
@@ -127,13 +145,17 @@ const columns = [
                     key: 'tp_iva',
                     width: 100,
                     onCell: (record) =>({
-                        className: record.tp_ext.startsWith('-') ? 'red-text' : ''})
+                        className: record.sit_iva !== 'B' ?
+                                 ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
+                                 (record.tp_ext.startsWith('-') ? 'red-text blocked' : 'blocked')}),
                 },    
                 {
                     title: 'Salida',
                     dataIndex: 'exit_iva',
                     key: 'exit_iva',
-                    width: 110
+                    width: 110,
+                    onCell: (record) =>({
+                        className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 }                   
             ]
         },
@@ -145,25 +167,33 @@ const columns = [
                     title: 'Sit.',
                     dataIndex: 'sit_inm',
                     key: 'sit_inm',
-                    width: 65
+                    width: 65,
+                    onCell: (record) =>({
+                        className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },
                 {
                     title: 'Con.',
                     dataIndex: 'con_inm',
                     key: 'con_inm',
-                    width: 70
+                    width: 70,
+                    onCell: (record) =>({
+                        className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 }, 
                 {
                     title: 'TE',
                     dataIndex: 'te_inm',
                     key: 'te_inm',
-                    width: 100
+                    width: 100,
+                    onCell: (record) =>({
+                        className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },  
                 {
                     title: 'TI',
                     dataIndex: 'ti_inm',
                     key: 'ti_inm',
-                    width: 100
+                    width: 100,
+                    onCell: (record) =>({
+                        className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },  
                 {
                     title: 'TP',
@@ -171,13 +201,17 @@ const columns = [
                     key: 'tp_inm',
                     width: 100,
                     onCell: (record) =>({
-                        className: record.tp_ext.startsWith('-') ? 'red-text' : ''})
+                        className: record.sit_inm !== 'B' ?
+                                 ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
+                                 (record.tp_ext.startsWith('-') ? 'red-text blocked' : 'blocked')}),
                 },    
                 {
                     title: 'Salida',
                     dataIndex: 'exit_inm',
                     key: 'exit_inm',
-                    width: 110
+                    width: 110,
+                    onCell: (record) =>({
+                        className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 }                 
             ]
         },
@@ -189,25 +223,33 @@ const columns = [
                     title: 'Sit.',
                     dataIndex: 'sit_acc',
                     key: 'sit_acc',
-                    width: 65
+                    width: 65,
+                    onCell: (record) =>({
+                        className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },
                 {
                     title: 'Con.',
                     dataIndex: 'con_acc',
                     key: 'con_acc',
-                    width: 70
+                    width: 70,
+                    onCell: (record) =>({
+                        className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 }, 
                 {
                     title: 'TE',
                     dataIndex: 'te_acc',
                     key: 'te_acc',
-                    width: 100
+                    width: 100,
+                    onCell: (record) =>({
+                        className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },  
                 {
                     title: 'TI',
                     dataIndex: 'ti_acc',
                     key: 'ti_acc',
-                    width: 100
+                    width: 100,
+                    onCell: (record) =>({
+                        className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },  
                 {
                     title: 'TP',
@@ -215,13 +257,17 @@ const columns = [
                     key: 'tp_acc',
                     width: 100,
                     onCell: (record) =>({
-                        className: record.tp_ext.startsWith('-') ? 'red-text' : ''})
+                        className: record.sit_acc !== 'B' ?
+                                 ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
+                                 (record.tp_ext.startsWith('-') ? 'red-text blocked' : 'blocked')}),
                 },    
                 {
                     title: 'Salida',
                     dataIndex: 'exit_acc',
                     key: 'exit_acc',
-                    width: 110
+                    width: 110,
+                    onCell: (record) =>({
+                        className: record.sit_acc === 'B' ? 'blocked' : ''})
                 }                 
             ]
         },
@@ -230,7 +276,9 @@ const columns = [
         dataIndex: 'ended',
         key: 'ended',
         width: 80,
-        fixed: 'right'
+        fixed: 'right',
+        onCell: (record) =>({
+            className: record.tp_ext === 'F' ? 'finished' : ''})
     },
     {
         title: 'Total',
@@ -280,7 +328,7 @@ const customHeader = (column) => ({
 
 export default function Worksheet() {
     
-    let [quarter, setQuarter] = React.useState("third-quarter");
+    let [quarter, setQuarter] = useState("third-quarter");
 
     return (
         <>

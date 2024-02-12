@@ -2,22 +2,32 @@ td.red-text {
     color:red !important
 }
 
-th.extracts-header {
+.extracts-header {
     background-color: #7bc5fe !important
 }
 
-th.vat-header {
+.vat-header {
     background-color: #a5e587 !important
 }
 
-th.fixed-assets-header {
+.fixed-assets-header {
     background-color: #ffd37d !important
 }
 
-th.accountable-header {
+.accountable-header {
     background-color: #f99596 !important
 }
 
 td.blocked {
     background-color:#ffe7ba !important
+}
+
+td.finished {
+    background-color:#cdeebd !important
+}
+
+h2.title {
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
 }

@@ -7,43 +7,44 @@ const columns = [
         title: 'Fecha',
         dataIndex: 'date',
         key: 'date',
-        width: 110,
+        width: 60,
         fixed: 'left'
     },
     {
         title: 'Bloq.',
         dataIndex: 'block',
         key: 'block',
-        width: 75,
+        width: 35,
         fixed: 'left'
     },
     {
         title: 'Prior.',
         dataIndex: 'priority',
         key: 'priority',
-        width: 75,
+        width: 35,
         fixed: 'left'
     },
     {
         title: 'Nº',
         dataIndex: 'company_number',
         key: 'company_number',
-        width: 65,
+        width: 40,
         fixed: 'left'
     },
     {
         title: 'Empresa',
         dataIndex: 'company_name',
         key: 'company_name',
-        width: 175,
-        fixed: 'left'
+        width: 100,
+        fixed: 'left',
+        ellipsis: true,
 
     },
     {
         title: 'XD',
         dataIndex: 'xd',
         key: 'xd',
-        width: 60,
+        width: 30,
         fixed: 'left'
     },
 
@@ -55,7 +56,7 @@ const columns = [
                     title: 'Sit.',
                     dataIndex: 'sit_ext',
                     key: 'sit_ext',
-                    width: 65,
+                    width: 30,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },
@@ -63,7 +64,7 @@ const columns = [
                     title: 'Con.',
                     dataIndex: 'con_ext',
                     key: 'con_ext',
-                    width: 70,
+                    width: 30,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 }, 
@@ -71,7 +72,7 @@ const columns = [
                     title: 'TE',
                     dataIndex: 'te_ext',
                     key: 'te_ext',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },  
@@ -79,7 +80,7 @@ const columns = [
                     title: 'TI',
                     dataIndex: 'ti_ext',
                     key: 'ti_ext',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },  
@@ -87,7 +88,7 @@ const columns = [
                     title: 'TP',
                     dataIndex: 'tp_ext',
                     key: 'tp_ext',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_ext !== 'B' ?
                                  ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
@@ -97,7 +98,7 @@ const columns = [
                     title: 'Salida',
                     dataIndex: 'exit_ext',
                     key: 'exit_ext',
-                    width: 110,
+                    width: 60,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 }               
@@ -111,7 +112,7 @@ const columns = [
                     title: 'Sit.',
                     dataIndex: 'sit_iva',
                     key: 'sit_iva',
-                    width: 65,
+                    width: 30,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },
@@ -119,7 +120,7 @@ const columns = [
                     title: 'Con.',
                     dataIndex: 'con_iva',
                     key: 'con_iva',
-                    width: 70,
+                    width: 30,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 }, 
@@ -127,7 +128,7 @@ const columns = [
                     title: 'TE',
                     dataIndex: 'te_iva',
                     key: 'te_iva',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },  
@@ -135,7 +136,7 @@ const columns = [
                     title: 'TI',
                     dataIndex: 'ti_iva',
                     key: 'ti_iva',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },  
@@ -143,7 +144,7 @@ const columns = [
                     title: 'TP',
                     dataIndex: 'tp_iva',
                     key: 'tp_iva',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_iva !== 'B' ?
                                  ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
@@ -153,7 +154,7 @@ const columns = [
                     title: 'Salida',
                     dataIndex: 'exit_iva',
                     key: 'exit_iva',
-                    width: 110,
+                    width: 60,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 }                   
@@ -167,7 +168,7 @@ const columns = [
                     title: 'Sit.',
                     dataIndex: 'sit_inm',
                     key: 'sit_inm',
-                    width: 65,
+                    width: 30,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },
@@ -175,7 +176,7 @@ const columns = [
                     title: 'Con.',
                     dataIndex: 'con_inm',
                     key: 'con_inm',
-                    width: 70,
+                    width: 30,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 }, 
@@ -183,7 +184,7 @@ const columns = [
                     title: 'TE',
                     dataIndex: 'te_inm',
                     key: 'te_inm',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },  
@@ -191,7 +192,7 @@ const columns = [
                     title: 'TI',
                     dataIndex: 'ti_inm',
                     key: 'ti_inm',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },  
@@ -199,7 +200,7 @@ const columns = [
                     title: 'TP',
                     dataIndex: 'tp_inm',
                     key: 'tp_inm',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_inm !== 'B' ?
                                  ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
@@ -209,7 +210,7 @@ const columns = [
                     title: 'Salida',
                     dataIndex: 'exit_inm',
                     key: 'exit_inm',
-                    width: 110,
+                    width: 60,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 }                 
@@ -223,7 +224,7 @@ const columns = [
                     title: 'Sit.',
                     dataIndex: 'sit_acc',
                     key: 'sit_acc',
-                    width: 65,
+                    width: 30,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },
@@ -231,7 +232,7 @@ const columns = [
                     title: 'Con.',
                     dataIndex: 'con_acc',
                     key: 'con_acc',
-                    width: 70,
+                    width: 30,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 }, 
@@ -239,7 +240,7 @@ const columns = [
                     title: 'TE',
                     dataIndex: 'te_acc',
                     key: 'te_acc',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },  
@@ -247,7 +248,7 @@ const columns = [
                     title: 'TI',
                     dataIndex: 'ti_acc',
                     key: 'ti_acc',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },  
@@ -255,7 +256,7 @@ const columns = [
                     title: 'TP',
                     dataIndex: 'tp_acc',
                     key: 'tp_acc',
-                    width: 100,
+                    width: 50,
                     onCell: (record) =>({
                         className: record.sit_acc !== 'B' ?
                                  ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
@@ -265,7 +266,7 @@ const columns = [
                     title: 'Salida',
                     dataIndex: 'exit_acc',
                     key: 'exit_acc',
-                    width: 110,
+                    width: 60,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''})
                 }                 
@@ -275,28 +276,28 @@ const columns = [
         title: 'Fin.',
         dataIndex: 'ended',
         key: 'ended',
-        width: 80,
+        width: 30,
         fixed: 'right',
         onCell: (record) =>({
-            className: record.tp_ext === 'F' ? 'finished' : ''})
+            className: record.ended === 'F' ? 'finished' : ''})
     },
     {
         title: 'Total',
         dataIndex: 'total_time',
         key: 'total_time',
-        width: 110
+        width: 60
     },
     {
         title: 'Con_rev',
         dataIndex: 'accountant_revisor',
         key: 'accountant_revisor',
-        width: 90
+        width: 45
     },
     {
         title: 'Con_rev_ant',
         dataIndex: 'prev_accountant_revisor',
         key: 'prev_accountant_revisor',
-        width: 110
+        width: 55
     }
 ];
 
@@ -342,8 +343,9 @@ export default function Worksheet() {
                 columns={columns.map(customHeader)} 
                 dataSource={dataSource} 
                 pagination={ false } 
-                scroll={{ x: 3500, y: 600 }}
-                bordered={'bordered'}    
+                scroll={{ x: 2500, y: 650 }}
+                bordered={'bordered'}   
+                size='small' 
             />
         </>
   );

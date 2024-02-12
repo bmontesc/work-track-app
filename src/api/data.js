@@ -5163,3 +5163,92 @@ export const dataSource = data_array.map((item) =>({
   accountant_revisor: item.accountant_revisor,
   prev_accountant_revisor: item.prev_accountant_revisor 
 }))
+
+export function getDataPerEmployee(employeeCode) {
+  let dataSourceEmployee = [];
+  let taskType = ['extracts', 'vat', 'fixed assets', 'accountable']
+  
+  taskType.forEach((task_type) => {
+    let categoryTask = data_array.map((item) => ({
+      date: item.date,
+      block: item.block,
+      priority: item.priority,
+      company_number: item.company_number,
+      company_name: item.company_name,
+      xd: item.xd,
+      sit: item.tasks.find(task => task.type === task_type)?.status,
+      con: item.tasks.find(task => task.type === task_type)?.accountant_code,
+      te: item.tasks.find(task => task.type === task_type)?.estimated_time,
+      ti: item.tasks.find(task => task.type === task_type)?.used_time,
+      tp: item.tasks.find(task => task.type === task_type)?.diference,
+      exit: item.tasks.find(task => task.type === task_type)?.finish_date,
+    }))
+    categoryTask = categoryTask.filter((task) => task.con === employeeCode)
+    dataSourceEmployee.push({type: task_type, tasks: categoryTask})
+  })
+  return dataSourceEmployee
+}
+
+export function getDataPerCompany(companyCode) {
+  console.log(companyCode)
+  let dataSourceCompany = [];
+  let taskType = ['extracts', 'vat', 'fixed assets', 'accountable']
+  
+  taskType.forEach((task_type) => {
+    let categoryTask = data_array.map((item) => ({
+      date: item.date,
+      block: item.block,
+      priority: item.priority,
+      company_number: item.company_number,
+      xd: item.xd,
+      sit: item.tasks.find(task => task.type === task_type)?.status,
+      con: item.tasks.find(task => task.type === task_type)?.accountant_code,
+      te: item.tasks.find(task => task.type === task_type)?.estimated_time,
+      ti: item.tasks.find(task => task.type === task_type)?.used_time,
+      tp: item.tasks.find(task => task.type === task_type)?.diference,
+      exit: item.tasks.find(task => task.type === task_type)?.finish_date,
+    }))
+    categoryTask = categoryTask.filter((task) => task.company_number === companyCode)
+    dataSourceCompany.push({type: task_type, tasks: categoryTask})
+  })
+  console.log(dataSourceCompany)
+  return dataSourceCompany
+}
+
+export const dataSourcePerEmployee = data_array.map((item) =>({
+  key: item.date + '-' + item.company_number,
+  date: item.date,
+  block: item.block,
+  priority: item.priority,
+  company_number: item.company_number,
+  company_name: item.company_name,
+  xd: item.xd,
+  sit_ext: item.tasks.find(task => task.type === 'extracts')?.status,
+  con_ext: item.tasks.find(task => task.type === 'extracts')?.accountant_code,
+  te_ext: item.tasks.find(task => task.type === 'extracts')?.estimated_time,
+  ti_ext: item.tasks.find(task => task.type === 'extracts')?.used_time,
+  tp_ext: item.tasks.find(task => task.type === 'extracts')?.diference,
+  exit_ext: item.tasks.find(task => task.type === 'extracts')?.finish_date,
+  sit_iva: item.tasks.find(task => task.type === 'vat')?.status,
+  con_iva: item.tasks.find(task => task.type === 'vat')?.accountant_code,
+  te_iva: item.tasks.find(task => task.type === 'vat')?.estimated_time,
+  ti_iva: item.tasks.find(task => task.type === 'vat')?.used_time,
+  tp_iva: item.tasks.find(task => task.type === 'vat')?.diference,
+  exit_iva: item.tasks.find(task => task.type === 'vat')?.finish_date,
+  sit_inm: item.tasks.find(task => task.type === 'fixed assets')?.status,
+  con_inm: item.tasks.find(task => task.type === 'fixed assets')?.accountant_code,
+  te_inm: item.tasks.find(task => task.type === 'fixed assets')?.estimated_time,
+  ti_inm: item.tasks.find(task => task.type === 'fixed assets')?.used_time,
+  tp_inm: item.tasks.find(task => task.type === 'fixed assets')?.diference,
+  exit_inm: item.tasks.find(task => task.type === 'fixed assets')?.finish_date,
+  sit_acc: item.tasks.find(task => task.type === 'accountable')?.status,
+  con_acc: item.tasks.find(task => task.type === 'accountable')?.accountant_code,
+  te_acc: item.tasks.find(task => task.type === 'accountable')?.estimated_time,
+  ti_acc: item.tasks.find(task => task.type === 'accountable')?.used_time,
+  tp_acc: item.tasks.find(task => task.type === 'accountable')?.diference,
+  exit_acc: item.tasks.find(task => task.type === 'accountable')?.finish_date,
+  ended: item.ended,
+  total_time: item.total_time,
+  accountant_revisor: item.accountant_revisor,
+  prev_accountant_revisor: item.prev_accountant_revisor 
+}))

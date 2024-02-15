@@ -31,7 +31,7 @@ const AppHeader = () => {
           shape="square" 
           style={{marginRight: '20px'}} 
           size={48} 
-          src="https://media.licdn.com/dms/image/C4E0BAQGqrz5hxLCRzA/company-logo_200_200/0/1655462109913/btasesores_logo?e=2147483647&v=beta&t=dM707dYicMONt_rUFKSzzGtBxWXoas0CDm2R40D84r8" 
+          src="%PUBLIC_URL%/btasesores_logo.png" 
         />
         <Menu
           theme="dark"

@@ -31,7 +31,7 @@ const AppHeader = () => {
           shape="square" 
           style={{marginRight: '20px'}} 
           size={48} 
-          src="%PUBLIC_URL%/btasesores_logo.png" 
+          src="..\..\public\btasesores_logo.png" 
         />
         <Menu
           theme="dark"

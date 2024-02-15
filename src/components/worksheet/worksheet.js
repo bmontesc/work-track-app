@@ -1,6 +1,7 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Table, Radio } from 'antd';
-import { dataSource } from '../../api/data'
+import { mapPlanToColumn } from '../../api/data'
+import { getGlobalPlan } from '../../api/getData';
 
 const columns = [
     {
@@ -329,8 +330,30 @@ const customHeader = (column) => ({
 
 export default function Worksheet() {
     
-    let [quarter, setQuarter] = useState("third-quarter");
+    const [quarter, setQuarter] = useState("third-quarter");
+    const [dataLoaded, setDataLoaded] = useState(false);
+    const [dataSource, setDataSource] = useState();
 
+    const fetchData = async () => {
+        try {
+            const data = await getGlobalPlan(2023,3);
+            console.log(data)
+            setDataSource(mapPlanToColumn(data))
+            setDataLoaded(true)
+            console.log(dataSource)
+        } catch (error) {
+            console.error('Error al obtener los datos', error);
+        }
+    };
+
+    useEffect(()=>{
+        fetchData()
+    });
+
+    if (!dataLoaded) {
+        return <div>Loading...</div>;
+    }
+    
     return (
         <>
             <Radio.Group value={quarter} buttonStyle="solid" onChange={(e) => setQuarter(e.target.value)}>

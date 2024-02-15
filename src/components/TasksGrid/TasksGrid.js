@@ -3,7 +3,6 @@ import { Table } from 'antd';
 
 export default function TasksGrid(props) {
     
-    console.log(props)
     let title_type = props.tasks.type
     
     const title = title_type === 'extracts' ? (<h2 className='title extracts-header'>Extractos</h2>) 

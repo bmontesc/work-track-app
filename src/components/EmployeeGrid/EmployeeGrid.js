@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Row, Col, Dropdown, Button, Space, Typography } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import TasksGrid from '../TasksGrid/TasksGrid';
-import { getDataPerEmployee } from '../../api/data';
+import { getAccountantList, getTasksPerAccId } from '../../api/getData';
 const { Title } = Typography;
 
 const scrollY = 300
@@ -102,16 +102,46 @@ const EmployeeGrid = () => {
 
     const [employee, setEmployee] = useState();
     const [employeeCode, setEmployeeCode] = useState();
-
+    const [dataLoaded, setDataLoaded] = useState(false);
+    const [ menuItems, setMenuItems ] = useState([]);
+ 
     const handleMenuClick = (e) => {
         setEmployee((items.find(item => item.key === e.key)).label)
         setEmployeeCode(e.key)
     };
 
     const menuProps = {
-        items,
+        menuItems,
         onClick: handleMenuClick,
     };
+
+    const fetchData = async (quarter) => {
+        if (menuItems.length > 0) {
+            console.log('hola')
+        } else {
+            try { 
+                const data = await getAccountantList();
+                console.log(data)
+                setDataLoaded(true)
+                data.forEach(element => {
+                    const items = []
+                    items.push({label:element.name, key:element.id})
+                    setMenuItems(items)
+                });
+            } catch (error) {
+                console.error('Error la lista de contables', error);
+            } 
+        }
+    };
+
+    useEffect(()=>{
+        fetchData()
+    },[]);
+
+
+    if (!dataLoaded) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <>
@@ -131,11 +161,17 @@ const EmployeeGrid = () => {
                     Ver/Editar información del empleado
                 </Button>
             </div>
-            <Row gutter={[16, 16]}>
-                {getDataPerEmployee(employeeCode).map(task_type => <Col span={12}><TasksGrid key={task_type.type} tasks={task_type} columns={columns} scrollY={scrollY}/></Col>)}
-            </Row>
+
+            
         </>
     )
 }
 
 export default EmployeeGrid;
+
+
+/* 
+<Row gutter={[16, 16]}>
+                {getTasksPerAccId(employeeCode).map(task_type => <Col span={12}><TasksGrid key={task_type.type} tasks={task_type} columns={columns} scrollY={scrollY}/></Col>)}
+            </Row>
+*/

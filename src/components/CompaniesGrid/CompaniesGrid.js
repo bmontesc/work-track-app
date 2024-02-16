@@ -104,6 +104,8 @@ const CompanyGrid = () => {
         onClick: handleMenuClick,
     };
 
+    console.log(menuProps)
+
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: '20px', paddingRight: '20px' }}>

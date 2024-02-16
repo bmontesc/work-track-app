@@ -99,14 +99,14 @@ export const getAccountantList = () => {
             }
             return response.json();
     })
-    .then(data=>{data.map(object => {
-            console.log(object)
-            const accountant = {
-                id: object.id,
-                name: `${object.name} ${object.first_surname} ${object.second_surname}`}
-            console.log(accountant)
-            return accountant
-        })
+    .then(data=>{
+            let accountantList = []
+            data.forEach(object => {
+                accountantList.push({
+                    id: object.id,
+                    name: `${object.name} ${object.first_surname} ${object.second_surname}`})})
+        return accountantList
+        
     })
     .catch(error => {
         console.error('Error en la solicitud:', error.message);

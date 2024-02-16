@@ -79,55 +79,51 @@ const columns = [
     }               
 ];
 
-const items = [
-    {
-      label: 'Abel',
-      key: 'AB',
-    },
-    {
-      label: 'Anabel',
-      key: 'AN',
-    },
-    {
-      label: 'Antonio Rodriguez',
-      key: 'AR',
-    },
-    {
-      label: 'Bea Menor',
-      key: 'BM',
-    },
-];
+// const items = [
+//     {
+//       label: 'SOCIEDAD 162 S.L.',
+//       key: 162,
+//     },
+//     {
+//       label: 'SOCIEDAD 169 S.L.',
+//       key: 169,
+//     },
+//     {
+//       label: 'SOCIEDAD 214 S.L.',
+//       key: 214,
+//     },
+//     {
+//       label: 'SOCIEDAD 275 S.L.',
+//       key: 275,
+//     },
+// ];
 
 const EmployeeGrid = () => {
 
+    const [items, setItems] = useState([]);
     const [employee, setEmployee] = useState();
     const [employeeCode, setEmployeeCode] = useState();
     const [dataLoaded, setDataLoaded] = useState(false);
-    const [ menuItems, setMenuItems ] = useState([]);
  
     const handleMenuClick = (e) => {
+        console.log(e.target)
         setEmployee((items.find(item => item.key === e.key)).label)
         setEmployeeCode(e.key)
     };
 
     const menuProps = {
-        menuItems,
+        items,
         onClick: handleMenuClick,
     };
 
-    const fetchData = async (quarter) => {
-        if (menuItems.length > 0) {
-            console.log('hola')
-        } else {
+    const fetchData = async () => {
+        if (items.length === 0) {
             try { 
                 const data = await getAccountantList();
-                console.log(data)
+                const menuItems = data.map(element => ({key:element.id, label:element.name }));
+                console.log(menuItems)
+                setItems(menuItems)
                 setDataLoaded(true)
-                data.forEach(element => {
-                    const items = []
-                    items.push({label:element.name, key:element.id})
-                    setMenuItems(items)
-                });
             } catch (error) {
                 console.error('Error la lista de contables', error);
             } 
@@ -143,6 +139,7 @@ const EmployeeGrid = () => {
         return <div>Loading...</div>;
     }
 
+    console.log(menuProps)
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: '20px', paddingRight: '20px' }}>

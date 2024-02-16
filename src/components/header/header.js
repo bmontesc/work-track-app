@@ -10,7 +10,7 @@ function getItem(label, key) {
 const items = [
   getItem((<Link to={'/'}>Plan Global</Link>), 1),
   getItem((<Link to={'/employees'}>Tareas por trabajador</Link>), 2),
-  getItem((<Link to={'/companies'}>Tareas por empresas</Link>), 3)
+  getItem((<Link to={'/companies'}>Tareas por empresa</Link>), 3)
 ];
 
 const AppHeader = () => {

@@ -330,25 +330,24 @@ const customHeader = (column) => ({
 
 export default function Worksheet() {
     
-    const [quarter, setQuarter] = useState("third-quarter");
+    const [quarter, setQuarter] = useState(3);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [dataSource, setDataSource] = useState();
 
-    const fetchData = async () => {
+    const fetchData = async (quarter) => {
+        console.log(quarter)
         try {
-            const data = await getGlobalPlan(2023,3);
-            console.log(data)
+            const data = await getGlobalPlan(2023,quarter);
             setDataSource(mapPlanToColumn(data))
             setDataLoaded(true)
-            console.log(dataSource)
         } catch (error) {
             console.error('Error al obtener los datos', error);
         }
     };
 
     useEffect(()=>{
-        fetchData()
-    });
+        fetchData(3)
+    },[]);
 
     if (!dataLoaded) {
         return <div>Loading...</div>;
@@ -356,19 +355,19 @@ export default function Worksheet() {
     
     return (
         <>
-            <Radio.Group value={quarter} buttonStyle="solid" onChange={(e) => setQuarter(e.target.value)}>
-                <Radio.Button value="first-quarter">T1</Radio.Button>
-                <Radio.Button value="second-quarter">T2</Radio.Button>
-                <Radio.Button value="third-quarter">T3</Radio.Button>
-                <Radio.Button value="fourth-quarter">T4</Radio.Button>
+            <Radio.Group value={quarter} buttonStyle="solid" onChange={(e) => {console.log(e.target); setQuarter(e.target.value); fetchData(e.target.value)}}>
+                <Radio.Button value={1}>T1</Radio.Button>
+                <Radio.Button value={2}>T2</Radio.Button>
+                <Radio.Button value={3}>T3</Radio.Button>
+                <Radio.Button value={4}>T4</Radio.Button>
             </Radio.Group>
             <Table 
-                columns={columns.map(customHeader)} 
-                dataSource={dataSource} 
-                pagination={ false } 
+                columns={columns.map(customHeader)}
+                dataSource={dataSource}
+                pagination={ false }
                 scroll={{ x: 2500, y: 650 }}
-                bordered={'bordered'}   
-                size='small' 
+                bordered={'bordered'}
+                size='small'
             />
         </>
   );

@@ -18,3 +18,14 @@ export function calculateDiference(h1,h2) {
 
     return diferenciaHoraStr;
 }
+
+export function findElementsStartingWithHyphen() {
+    var cells = document.querySelectorAll('table td');
+   
+    cells.forEach(function(cell) {
+        var text = cell.textContent.trim();
+        if (text.startsWith("-")) {
+            cell.setAttribute("id", 'red-text');
+        }
+    });
+}

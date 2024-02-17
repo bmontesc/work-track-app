@@ -2,6 +2,7 @@ import { React, useState, useEffect } from 'react';
 import { Table, Radio } from 'antd';
 import { mapPlanToColumn } from '../../api/data'
 import { getGlobalPlan } from '../../api/getData';
+import {findElementsStartingWithHyphen} from '../../utils/utils'
 
 const columns = [
     {
@@ -91,9 +92,7 @@ const columns = [
                     key: 'tp_ext',
                     width: 50,
                     onCell: (record) =>({
-                        className: record.sit_ext !== 'B' ?
-                                 ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
-                                 (record.tp_ext.startsWith('-') ? 'red-text blocked' : 'blocked')}),
+                        className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },    
                 {
                     title: 'Salida',
@@ -147,9 +146,7 @@ const columns = [
                     key: 'tp_iva',
                     width: 50,
                     onCell: (record) =>({
-                        className: record.sit_iva !== 'B' ?
-                                 ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
-                                 (record.tp_ext.startsWith('-') ? 'red-text blocked' : 'blocked')}),
+                        className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },    
                 {
                     title: 'Salida',
@@ -203,9 +200,7 @@ const columns = [
                     key: 'tp_inm',
                     width: 50,
                     onCell: (record) =>({
-                        className: record.sit_inm !== 'B' ?
-                                 ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
-                                 (record.tp_ext.startsWith('-') ? 'red-text blocked' : 'blocked')}),
+                        className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },    
                 {
                     title: 'Salida',
@@ -259,9 +254,7 @@ const columns = [
                     key: 'tp_acc',
                     width: 50,
                     onCell: (record) =>({
-                        className: record.sit_acc !== 'B' ?
-                                 ( record.tp_ext.startsWith('-') ? 'red-text' : '') : 
-                                 (record.tp_ext.startsWith('-') ? 'red-text blocked' : 'blocked')}),
+                        className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },    
                 {
                     title: 'Salida',
@@ -334,6 +327,12 @@ export default function Worksheet() {
     const [dataLoaded, setDataLoaded] = useState(false);
     const [dataSource, setDataSource] = useState();
 
+    const toggleQuarter = (e) => {
+        setDataLoaded(false)
+        setQuarter(e.target.value)
+        fetchData(e.target.value)
+    }
+
     const fetchData = async (quarter) => {
         console.log(quarter)
         try {
@@ -348,14 +347,18 @@ export default function Worksheet() {
     useEffect(()=>{
         fetchData(3)
     },[]);
+    
+    useEffect(()=>{
+        findElementsStartingWithHyphen()
+    },[dataSource]);
 
     if (!dataLoaded) {
         return <div>Loading...</div>;
     }
-    
+
     return (
         <>
-            <Radio.Group value={quarter} buttonStyle="solid" onChange={(e) => {console.log(e.target); setQuarter(e.target.value); fetchData(e.target.value)}}>
+            <Radio.Group value={quarter} buttonStyle="solid" onChange={toggleQuarter}>
                 <Radio.Button value={1}>T1</Radio.Button>
                 <Radio.Button value={2}>T2</Radio.Button>
                 <Radio.Button value={3}>T3</Radio.Button>

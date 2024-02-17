@@ -1,5 +1,7 @@
-import { React } from 'react';
+import { React, useEffect } from 'react';
 import { Table } from 'antd';
+import {findElementsStartingWithHyphen} from '../../utils/utils'
+
 
 export default function TasksGrid(props) {
     
@@ -9,7 +11,9 @@ export default function TasksGrid(props) {
                     : (title_type === 'vat' ? (<h2 className='title vat-header'>IVA</h2>) 
                     : (title_type === 'fixed assets' ? (<h2 className='title fixed-assets-header'>Inmovilizado</h2>)
                     : (<h2 className='title accountable-header'>Contable</h2>)))
-
+    
+    
+    useEffect(()=>findElementsStartingWithHyphen(),[props])
 
     return [
         title

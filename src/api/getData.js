@@ -68,8 +68,12 @@ export const getTasksPerAccId = (accId) => {
             }
             return response.json();
     })
-    .then(data=>{ data.map(object => {
-            const accTasks = {
+    .then(data=>{
+        const tasksList = [{type: 'extracts', tasks:[]},{type: 'vat', tasks:[]},{type: 'fixed assets', tasks:[]},{type: 'accountable', tasks:[]}];
+        data.forEach(object => {
+            let t = 0
+            t = object.type === 'Extracts' ? 0 : (object.type === 'VAT'? 1 : (object.type === 'Accountable'? 3 : 2))
+            tasksList[t].tasks.push({
                 date: object.date !== null ? object.date.split('T')[0] : '',
                 block: false,
                 priority: 0,
@@ -80,15 +84,13 @@ export const getTasksPerAccId = (accId) => {
                 estimated_time: object.estimated_time !== '00:00:00' ? object.estimated_time : '',
                 used_time: object.used_time !== '00:00:00' ? object.used_time : '',
                 diference: object.used_time !== '00:00:00' ? calculateDiference(object.estimated_time, object.used_time) : '',
-                finish_date: object.finish_date !== null ? object.finish_date.split('T')[0] : ''
-            }
-            return accTasks
-        })
+                finish_date: object.finish_date !== null ? object.finish_date.split('T')[0] : ''})})
+        return tasksList
     })
     .catch(error => {
         console.error('Error en la solicitud:', error.message);
         throw error;
-      });
+    });
 }
 
 export const getAccountantList = () => {
@@ -100,16 +102,15 @@ export const getAccountantList = () => {
             return response.json();
     })
     .then(data=>{
-            let accountantList = []
-            data.forEach(object => {
-                accountantList.push({
-                    id: object.id,
-                    name: `${object.name} ${object.first_surname} ${object.second_surname}`})})
+        let accountantList = []
+        data.forEach(object => {
+            accountantList.push({
+                id: object.id,
+                name: `${object.name} ${object.first_surname} ${object.second_surname}`})})
         return accountantList
-        
     })
     .catch(error => {
         console.error('Error en la solicitud:', error.message);
         throw error;
-      });
+    });
 }

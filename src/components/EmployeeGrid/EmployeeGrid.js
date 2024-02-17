@@ -47,68 +47,48 @@ const columns = [
     },
     {
         title: 'Sit.',
-        dataIndex: 'sit',
-        key: 'sit',
+        dataIndex: 'status',
+        key: 'status',
         width: 50,
     }, 
     {
         title: 'TE',
-        dataIndex: 'te',
-        key: 'te',
+        dataIndex: 'estimated_time',
+        key: 'estimated_time',
         width: 100,
     },  
     {
         title: 'TI',
-        dataIndex: 'ti',
-        key: 'ti',
+        dataIndex: 'used_time',
+        key: 'used_time',
         width: 100,
     },  
     {
         title: 'TP',
-        dataIndex: 'tp',
-        key: 'tp',
+        dataIndex: 'diference',
+        key: 'diference',
         width: 100,
         onCell: (record) =>({
             className:  record.tp?.startsWith('-') ? 'red-text' : '' }),
-    },    
+    },
     {
         title: 'Salida',
-        dataIndex: 'exit',
-        key: 'exit',
+        dataIndex: 'finish_date',
+        key: 'finish_date',
         width: 110,
-    }               
+    }
 ];
-
-// const items = [
-//     {
-//       label: 'SOCIEDAD 162 S.L.',
-//       key: 162,
-//     },
-//     {
-//       label: 'SOCIEDAD 169 S.L.',
-//       key: 169,
-//     },
-//     {
-//       label: 'SOCIEDAD 214 S.L.',
-//       key: 214,
-//     },
-//     {
-//       label: 'SOCIEDAD 275 S.L.',
-//       key: 275,
-//     },
-// ];
 
 const EmployeeGrid = () => {
 
     const [items, setItems] = useState([]);
+    const [tasks, setTasks] = useState([]);
     const [employee, setEmployee] = useState();
-    const [employeeCode, setEmployeeCode] = useState();
     const [dataLoaded, setDataLoaded] = useState(false);
  
     const handleMenuClick = (e) => {
-        console.log(e.target)
-        setEmployee((items.find(item => item.key === e.key)).label)
-        setEmployeeCode(e.key)
+        setEmployee((items.find(item => item.key === Number(e.key))).label)
+        fetchTasks(e.key)
     };
 
     const menuProps = {
@@ -116,12 +96,21 @@ const EmployeeGrid = () => {
         onClick: handleMenuClick,
     };
 
-    const fetchData = async () => {
+    const fetchTasks = async (employeeRef) => {
+        try {
+            const data = await getTasksPerAccId(employeeRef)
+            console.log(data)
+            setTasks(data)
+        } catch (error) {
+            console.error('Error')
+        }
+    }
+
+    const fetchAccountantList = async () => {
         if (items.length === 0) {
             try { 
                 const data = await getAccountantList();
                 const menuItems = data.map(element => ({key:element.id, label:element.name }));
-                console.log(menuItems)
                 setItems(menuItems)
                 setDataLoaded(true)
             } catch (error) {
@@ -131,15 +120,13 @@ const EmployeeGrid = () => {
     };
 
     useEffect(()=>{
-        fetchData()
+        fetchAccountantList()
     },[]);
-
 
     if (!dataLoaded) {
         return <div>Loading...</div>;
     }
 
-    console.log(menuProps)
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: '20px', paddingRight: '20px' }}>
@@ -158,17 +145,11 @@ const EmployeeGrid = () => {
                     Ver/Editar información del empleado
                 </Button>
             </div>
-
-            
+            <Row gutter={[16, 16]}>
+                {tasks.map(task_type => <Col span={12}><TasksGrid key={task_type.type} tasks={task_type} columns={columns} scrollY={scrollY}/></Col>)}
+            </Row>
         </>
     )
 }
 
 export default EmployeeGrid;
-
-
-/* 
-<Row gutter={[16, 16]}>
-                {getTasksPerAccId(employeeCode).map(task_type => <Col span={12}><TasksGrid key={task_type.type} tasks={task_type} columns={columns} scrollY={scrollY}/></Col>)}
-            </Row>
-*/

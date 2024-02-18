@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import {Dropdown, Button, Space, Typography, Row, Col } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from "react";
+import { Cascader, Button, Typography, Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
 import TasksGrid from '../TasksGrid/TasksGrid';
-import { getDataPerCompany } from '../../api/data';
+import { getCompaniesList, getTasksPerComId } from '../../api/getData';
 const { Title } = Typography;
 
 const scrollY = 125
@@ -33,99 +33,106 @@ const columns = [
     },
     {
         title: 'Sit.',
-        dataIndex: 'sit',
-        key: 'sit',
+        dataIndex: 'status',
+        key: 'status',
         width: 50,
     }, 
     {   title: 'Con.',
-        dataIndex: 'con',
-        key: 'con',
+        dataIndex: 'accountant_code',
+        key: 'accountant_code',
         width: 30,
     }, 
     {
         title: 'TE',
-        dataIndex: 'te',
-        key: 'te',
+        dataIndex: 'estimated_time',
+        key: 'estimated_time',
         width: 100,
     },  
     {
         title: 'TI',
-        dataIndex: 'ti',
-        key: 'ti',
+        dataIndex: 'used_time',
+        key: 'used_time',
         width: 100,
     },  
     {
         title: 'TP',
-        dataIndex: 'tp',
-        key: 'tp',
+        dataIndex: 'diference',
+        key: 'diference',
         width: 100,
-        onCell: (record) =>({
-            className:  record.tp?.startsWith('-') ? 'red-text' : '' }),
     },    
     {
         title: 'Salida',
-        dataIndex: 'exit',
-        key: 'exit',
+        dataIndex: 'finish_date',
+        key: 'finish_date',
         width: 110,
     }               
 ];
 
-const items = [
-    {
-      label: 'SOCIEDAD 162 S.L.',
-      key: 162,
-    },
-    {
-      label: 'SOCIEDAD 169 S.L.',
-      key: 169,
-    },
-    {
-      label: 'SOCIEDAD 214 S.L.',
-      key: 214,
-    },
-    {
-      label: 'SOCIEDAD 275 S.L.',
-      key: 275,
-    },
-];
-
 const CompanyGrid = () => {
 
-    const [company, setCompany] = useState();
-    const [companyCode, setCompanyCode] = useState();
+    const [options, setOptions] = useState([]);
+    const [tasks, setTasks] = useState([]);
+    const [dataLoaded, setDataLoaded] = useState(false);
 
-    const handleMenuClick = (e) => {
-        setCompany((items.find(item => item.key === Number(e.key))).label)
-        setCompanyCode(Number(e.key))
+    const onChange = (value, selectedOptions) => {
+
+        if (selectedOptions) {
+            fetchTasks(selectedOptions[0].key)
+        }
     };
 
-    const menuProps = {
-        items,
-        onClick: handleMenuClick,
+    const fetchTasks = async (companyId) => {
+        try {
+            const data = await getTasksPerComId(companyId)
+            console.log(data)
+            setTasks(data)
+        } catch (error) {
+            console.error('Error')
+        }
+    }
+
+    const fetchCompanyList = async () => {
+        if (options.length === 0) {
+            try { 
+                const data = await getCompaniesList();
+                const menuItems = data.map(element => ({key:element.id, label:element.name, value: element.name.toLowerCase() }));
+                setOptions(menuItems)
+                setDataLoaded(true)
+            } catch (error) {
+                console.error('Error la lista de empresas', error);
+            } 
+        }
     };
 
-    console.log(menuProps)
+    const filter = (inputValue, path) =>
+        path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
+
+    useEffect(()=>{
+        fetchCompanyList()
+    },[]);
+
+    if (!dataLoaded) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: '20px', paddingRight: '20px' }}>
                 <Title level={4}>
                     Selecciona la empresa: 
-                    <Dropdown menu={menuProps}>
-                        <Button>
-                            <Space>
-                                {company}
-                            <DownOutlined />
-                            </Space>
-                        </Button>
-                    </Dropdown>
+                    <Cascader
+                        options={options}
+                        onChange={onChange}
+                        placeholder="Please select"
+                        showSearch={{ filter }}
+                    />
                 </Title>
                 <Button>
-                    Ver/Editar información de la empresa
+                    <Link to={'/companies/form'}>Ver/Editar información de la empresa</Link>
                 </Button>
             </div>
             <Row gutter={[16,16]}>
-                {getDataPerCompany(companyCode).map(task_type => <Col span={24}><TasksGrid key={task_type.type} tasks={task_type} columns={columns} scrollY={scrollY}/></Col>)}
+                {tasks.map(task_type => <Col span={24}><TasksGrid key={task_type.type} tasks={task_type} columns={columns} scrollY={scrollY}/></Col>)}
             </Row>
         </>
     )

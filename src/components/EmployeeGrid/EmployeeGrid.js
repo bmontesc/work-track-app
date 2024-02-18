@@ -67,9 +67,7 @@ const columns = [
         title: 'TP',
         dataIndex: 'diference',
         key: 'diference',
-        width: 100,
-        onCell: (record) =>({
-            className:  record.tp?.startsWith('-') ? 'red-text' : '' }),
+        width: 100
     },
     {
         title: 'Salida',
@@ -99,7 +97,6 @@ const EmployeeGrid = () => {
     const fetchTasks = async (employeeRef) => {
         try {
             const data = await getTasksPerAccId(employeeRef)
-            console.log(data)
             setTasks(data)
         } catch (error) {
             console.error('Error')

@@ -23,6 +23,7 @@ export function findElementsStartingWithHyphen() {
     var cells = document.querySelectorAll('table td');
    
     cells.forEach(function(cell) {
+        cell.removeAttribute("id");
         var text = cell.textContent.trim();
         if (text.startsWith("-")) {
             cell.setAttribute("id", 'red-text');

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Row, Col, Dropdown, Button, Space, Typography } from 'antd';
+import AppHeader from '../Header/Header';
 import { DownOutlined } from '@ant-design/icons';
 import TasksGrid from '../TasksGrid/TasksGrid';
 import { getAccountantList, getTasksPerAccId } from '../../api/getData';
@@ -126,6 +127,7 @@ const EmployeeGrid = () => {
 
     return (
         <>
+            <AppHeader />
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: '20px', paddingRight: '20px' }}>
                 <Title level={4}>
                     Selecciona el usuario: 

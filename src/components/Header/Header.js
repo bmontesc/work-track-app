@@ -1,6 +1,8 @@
-import * as React from 'react';
-import { Layout, Menu, Avatar } from 'antd';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Layout, Menu, Avatar, Button } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import {useUser} from '../../utils/useUser';
+
 const { Header} = Layout;
 
 function getItem(label, key) {
@@ -8,12 +10,23 @@ function getItem(label, key) {
 }
 
 const items = [
-  getItem((<Link to={'/'}>Plan Global</Link>), 1),
+  getItem((<Link to={'/home'}>Plan Global</Link>), 1),
   getItem((<Link to={'/employees'}>Tareas por trabajador</Link>), 2),
   getItem((<Link to={'/companies'}>Tareas por empresa</Link>), 3)
 ];
 
 const AppHeader = () => {
+
+  const {isLogged, logOutAuth} = useUser()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logOutAuth()
+  };
+
+  useEffect(()=>{
+    if (!isLogged) navigate("/")
+  },[isLogged])
 
   return (
     <Layout>
@@ -31,7 +44,7 @@ const AppHeader = () => {
           shape="square" 
           style={{marginRight: '20px'}} 
           size={48} 
-          src="..\..\public\btasesores_logo.png" 
+          src="https://media.licdn.com/dms/image/C4E0BAQGqrz5hxLCRzA/company-logo_200_200/0/1655462109913/btasesores_logo?e=2147483647&v=beta&t=dM707dYicMONt_rUFKSzzGtBxWXoas0CDm2R40D84r8" 
         />
         <Menu
           theme="dark"
@@ -43,6 +56,9 @@ const AppHeader = () => {
             minWidth: 0,
           }}
         />
+      <Button onClick={handleLogout}>
+          Cerrar sesión
+      </Button>
       </Header>
     </Layout>
   );

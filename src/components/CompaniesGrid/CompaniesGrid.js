@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Cascader, Button, Typography, Row, Col } from 'antd';
+import AppHeader from '../Header/Header';
 import { Link } from 'react-router-dom';
 import TasksGrid from '../TasksGrid/TasksGrid';
 import { getCompaniesList, getTasksPerComId } from '../../api/getData';
@@ -117,6 +118,7 @@ const CompanyGrid = () => {
 
     return (
         <>
+            <AppHeader />
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: '20px', paddingRight: '20px' }}>
                 <Title level={4}>
                     Selecciona la empresa: 

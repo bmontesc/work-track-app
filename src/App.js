@@ -1,16 +1,14 @@
 import './App.css';
 import React from 'react';
-import {AuthProvider} from "./components/AuthProvider/AuthProvider";
-import GlobalPlan from './components/GlobalPlan/GlobalPlan';
-import EmployeeGrid from './components/Employee/EmployeeGrid/EmployeeGrid';
-import CompanyGrid from './components/Company/CompaniesGrid/CompaniesGrid';
-import CompanyForm from './components/Company/CompanyForm/CompanyForm';
-import EmployeeForm from './components/Employee/EmployeeForm/EmployeeForm'
-import EmployeeList from './components/Employee/EmployeeList/EmployeeList';
-import LogIn from './components/LogInPage/LogIn';
-import { BrowserRouter, Route, Routes, redirect } from 'react-router-dom';
-
-const isLoggedIn = false
+import {AuthProvider} from "./components/AuthProvider/AuthProvider.js";
+import GlobalPlan from './components/GlobalPlan/GlobalPlan.js';
+import EmployeeGrid from './components/Employee/EmployeeGrid/EmployeeGrid.js';
+import CompanyGrid from './components/Company/CompaniesGrid/CompaniesGrid.js';
+import CompanyForm from './components/Company/CompanyForm/CompanyForm.js';
+import EmployeeForm from './components/Employee/EmployeeForm/EmployeeForm.js'
+import EmployeeList from './components/Employee/EmployeeList/EmployeeList.js';
+import LogIn from './components/LogInPage/LogIn.js';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (

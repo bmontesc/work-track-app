@@ -2,10 +2,11 @@ import './App.css';
 import React from 'react';
 import {AuthProvider} from "./components/AuthProvider/AuthProvider";
 import GlobalPlan from './components/GlobalPlan/GlobalPlan';
-import EmployeeGrid from './components/EmployeeGrid/EmployeeGrid';
-import CompanyGrid from './components/CompaniesGrid/CompaniesGrid';
-import CompanyForm from './components/CompanyForm/CompanyForm';
-import EmployeeForm from './components/EmployeeForm/EmployeeForm'
+import EmployeeGrid from './components/Employee/EmployeeGrid/EmployeeGrid';
+import CompanyGrid from './components/Company/CompaniesGrid/CompaniesGrid';
+import CompanyForm from './components/Company/CompanyForm/CompanyForm';
+import EmployeeForm from './components/Employee/EmployeeForm/EmployeeForm'
+import EmployeeList from './components/Employee/EmployeeList/EmployeeList';
 import LogIn from './components/LogInPage/LogIn';
 import { BrowserRouter, Route, Routes, redirect } from 'react-router-dom';
 
@@ -22,8 +23,9 @@ function App() {
                 <Route path='/home' element={<GlobalPlan />} />
                 <Route path="/companies" element={<CompanyGrid />} />
                 <Route path="/employees" element={<EmployeeGrid />} />
-                <Route path="/companies/form" element={<CompanyForm />} />
-                <Route path='/employees/form' element={<EmployeeForm />} />
+                <Route path="/companies/form/:id" element={<CompanyForm />} />
+                <Route path='/employees/form/:id' element={<EmployeeForm />} />
+                <Route path='/employees/list' element={<EmployeeList />} />
             </Routes>
           </BrowserRouter>
       </AuthProvider>

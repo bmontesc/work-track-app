@@ -73,7 +73,17 @@ export const getAccountantList = () => {
         data.forEach(object => {
             accountantList.push({
                 id: object.id,
-                name: `${object.name} ${object.first_surname} ${object.second_surname}`})})
+                name: object.name,
+                first_surname: object.first_surname,
+                second_surname: object.second_surname,
+                full_name: `${object.name} ${object.first_surname} ${object.second_surname}`,
+                reference: object.reference,
+                address: object.address,
+                city: object.city,
+                zip_code: object.zip_code,
+                phone_number: object.phone_number,
+                email: object.email
+            })})
         return accountantList
     })
     .catch(error => {
@@ -128,7 +138,15 @@ export const getCompaniesList = () => {
         data.forEach(object => {
             companyList.push({
                 id: object.id,
-                name: object.name})})
+                name: object.name,
+                code: object.code,
+                address: object.address,
+                zip_code: object.zip_code,
+                city: object.city,
+                phone: object.phone,
+                email: object.email,
+                contact_person: object.contact_person
+            })})
         return companyList
     })
     .catch(error => {

@@ -5,6 +5,7 @@ import GlobalPlan from './components/GlobalPlan/GlobalPlan';
 import EmployeeGrid from './components/EmployeeGrid/EmployeeGrid';
 import CompanyGrid from './components/CompaniesGrid/CompaniesGrid';
 import CompanyForm from './components/CompanyForm/CompanyForm';
+import EmployeeForm from './components/EmployeeForm/EmployeeForm'
 import LogIn from './components/LogInPage/LogIn';
 import { BrowserRouter, Route, Routes, redirect } from 'react-router-dom';
 
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/companies" element={<CompanyGrid />} />
                 <Route path="/employees" element={<EmployeeGrid />} />
                 <Route path="/companies/form" element={<CompanyForm />} />
+                <Route path='/employees/form' element={<EmployeeForm />} />
             </Routes>
           </BrowserRouter>
       </AuthProvider>

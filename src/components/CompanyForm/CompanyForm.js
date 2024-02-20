@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, InputNumber, Form, Input, Typography } from 'antd';
+import AppHeader from '../Header/Header';
 const { Title } = Typography;
 
 const onFinish = (values) => {
@@ -9,10 +10,10 @@ const onFinishFailed = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 
-const App = () => (
+const CompanyForm = () => (
 <div>
+    <AppHeader />
     <Title level={3}>Datos de la empresa</Title>
-
     <Form
         name="basic"
         labelCol={{
@@ -128,4 +129,4 @@ const App = () => (
     </Form>
   </div>
 );
-export default App;
+export default CompanyForm;

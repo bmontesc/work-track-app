@@ -3,7 +3,10 @@ import {Row, Col, Dropdown, Button, Space, Typography } from 'antd';
 import AppHeader from '../Header/Header';
 import { DownOutlined } from '@ant-design/icons';
 import TasksGrid from '../TasksGrid/TasksGrid';
+import { Link } from "react-router-dom";
 import { getAccountantList, getTasksPerAccId } from '../../api/getData';
+import generatePDF from "../PDFReport/PDFReport";
+
 const { Title } = Typography;
 
 const scrollY = 300
@@ -117,6 +120,10 @@ const EmployeeGrid = () => {
         }
     };
 
+    const callGeneratePDF = () =>{
+        generatePDF(tasks, employee)
+    }
+
     useEffect(()=>{
         fetchAccountantList()
     },[]);
@@ -140,13 +147,17 @@ const EmployeeGrid = () => {
                         </Button>
                     </Dropdown>
                 </Title>
-                <Button>
-                    Ver/Editar información del empleado
-                </Button>
+                <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+                    <Button onClick={callGeneratePDF} style={{marginTop: '20px', marginRight: '10px', display: tasks.length === 0 ? 'none' : 'block'}}> Generar informe en PDF</Button>
+                    <Button style={{marginTop: '20px', display: tasks.length === 0 ? 'none' : 'block'}}>
+                        <Link to={'/employees/form'}>Ver/Editar información del empleado</Link>
+                    </Button>
+                </div>
             </div>
             <Row gutter={[16, 16]}>
                 {tasks.map(task_type => <Col span={12}><TasksGrid key={task_type.type} tasks={task_type} columns={columns} scrollY={scrollY}/></Col>)}
             </Row>
+            <Button type="primary" danger style={{margin: '20px', float: 'right', display: tasks.length === 0 ? 'none' : 'block'}}> Eliminar este empleado</Button>
         </>
     )
 }

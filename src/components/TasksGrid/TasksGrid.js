@@ -13,7 +13,9 @@ export default function TasksGrid(props) {
                     : (<h2 className='title accountable-header'>Contable</h2>)))
     
     
-    useEffect(()=>findElementsStartingWithHyphen(),[props])
+    useEffect(()=>{
+        findElementsStartingWithHyphen()
+    },[props])
 
     return [
         title

@@ -21,7 +21,7 @@ export function calculateDiference(h1,h2) {
 
 export function findElementsStartingWithHyphen() {
     var cells = document.querySelectorAll('table td');
-   
+
     cells.forEach(function(cell) {
         cell.removeAttribute("id");
         var text = cell.textContent.trim();
@@ -29,4 +29,5 @@ export function findElementsStartingWithHyphen() {
             cell.setAttribute("id", 'red-text');
         }
     });
+
 }

@@ -4,6 +4,7 @@ import AppHeader from '../Header/Header';
 import { Link } from 'react-router-dom';
 import TasksGrid from '../TasksGrid/TasksGrid';
 import { getCompaniesList, getTasksPerComId } from '../../api/getData';
+import generatePDF from "../PDFReport/PDFReport";
 const { Title } = Typography;
 
 const scrollY = 125
@@ -74,11 +75,12 @@ const CompanyGrid = () => {
     const [options, setOptions] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(false);
+    const [company, setCompany] = useState();
 
     const onChange = (value, selectedOptions) => {
-
         if (selectedOptions) {
             fetchTasks(selectedOptions[0].key)
+            setCompany((options.find(option => option.key === selectedOptions[0].key)).label)
         }
     };
 
@@ -108,6 +110,10 @@ const CompanyGrid = () => {
     const filter = (inputValue, path) =>
         path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
+    const callGeneratePDF = () =>{
+        generatePDF(tasks, null, company)
+    }
+
     useEffect(()=>{
         fetchCompanyList()
     },[]);
@@ -129,13 +135,17 @@ const CompanyGrid = () => {
                         showSearch={{ filter }}
                     />
                 </Title>
-                <Button>
-                    <Link to={'/companies/form'}>Ver/Editar información de la empresa</Link>
-                </Button>
+                <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+                    <Button onClick={callGeneratePDF} style={{marginTop: '20px', marginRight: '10px', display: tasks.length === 0 ? 'none' : 'block'}}> Generar informe en PDF</Button>
+                    <Button style={{marginTop: '20px', display: tasks.length === 0 ? 'none' : 'block'}}>
+                        <Link to={'/companies/form'}>Ver/Editar información de la empresa</Link>
+                    </Button>
+                </div>
             </div>
             <Row gutter={[16,16]}>
                 {tasks.map(task_type => <Col span={24}><TasksGrid key={task_type.type} tasks={task_type} columns={columns} scrollY={scrollY}/></Col>)}
             </Row>
+            <Button type="primary" danger style={{margin: '20px', float: 'right', display: tasks.length === 0 ? 'none' : 'block'}}> Eliminar esta empresa</Button>
         </>
     )
 }

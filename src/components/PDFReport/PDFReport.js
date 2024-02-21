@@ -27,7 +27,7 @@ const generatePDF = (tasks, employee, company) => {
                                     : 'Contable' ))
       let data;
       if (employee) data = task.tasks.map(taskLine => [taskLine.date, '', taskLine.priority, taskLine.company_number, taskLine.company_name, '', taskLine.status, taskLine.estimated_time, taskLine.used_time, taskLine.diference, taskLine.finish_date ]);
-      if (company) data = task.tasks.map(taskLine => [taskLine.date, '', taskLine.priority, '', taskLine.status, taskLine.accountant_code === undefined ? '' : taskLine.accountant_code, taskLine.estimated_time, taskLine.used_time, taskLine.diference, taskLine.finish_date ]);
+      if (company) data = task.tasks.map(taskLine => [taskLine.date, '', taskLine.priority, '', taskLine.status, taskLine.accountant_code, taskLine.estimated_time, taskLine.used_time, taskLine.diference, taskLine.finish_date ]);
 
       doc.setFillColor(titleColor[index]);
       doc.setTextColor("#000000");
@@ -90,9 +90,9 @@ const generatePDF = (tasks, employee, company) => {
 
             doc.rect(y, x, columnWidths[index], 8, "F");
             const cellWidth = columnWidths[index];
-            const cellTextWidth = doc.getStringUnitWidth(cell.toString()) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+            const cellTextWidth = doc.getStringUnitWidth(cell === null ? '' : cell.toString()) * doc.internal.getFontSize() / doc.internal.scaleFactor;
             const xOffset = (cellWidth - cellTextWidth) / 2;
-            doc.text(cell.toString(), y + xOffset, x + 5);
+            doc.text(cell === null ? '' : cell.toString(), y + xOffset, x + 5);
             y += columnWidths[index];
           });
           y = 15;

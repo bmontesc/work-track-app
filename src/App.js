@@ -7,6 +7,7 @@ import CompanyGrid from './components/Company/CompaniesGrid/CompaniesGrid.js';
 import CompanyForm from './components/Company/CompanyForm/CompanyForm.js';
 import EmployeeForm from './components/Employee/EmployeeForm/EmployeeForm.js'
 import EmployeeList from './components/Employee/EmployeeList/EmployeeList.js';
+import CompanyList from './components/Company/CompanyList/CompanyList.js';
 import LogIn from './components/LogInPage/LogIn.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/companies/form/:id" element={<CompanyForm />} />
                 <Route path='/employees/form/:id' element={<EmployeeForm />} />
                 <Route path='/employees/list' element={<EmployeeList />} />
+                <Route path='/companies/list' element={<CompanyList />} />
             </Routes>
           </BrowserRouter>
       </AuthProvider>

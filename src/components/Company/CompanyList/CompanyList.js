@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
 import { useDispatch,useSelector } from 'react-redux';
-import { setEmployeesList } from "../../../redux/employeesSlice";
+import { setCompaniesList } from "../../../redux/companiesSlice";
 import AppHeader from '../../Header/Header';
 import {Loading} from '../../Loading/Loading'
-import { getAccountantList } from '../../../api/getData';
+import { getCompaniesList } from '../../../api/getData';
 
 const {Title} = Typography
 
@@ -21,7 +21,7 @@ const EditableCell = ({ editing, dataIndex, title, inputType, record, index, chi
           rules={[
             {
               required: true,
-              message: `Please Input ${title}!`,
+              message: `Por favor, introduce ${title}`,
             },
           ]}
         >
@@ -33,29 +33,30 @@ const EditableCell = ({ editing, dataIndex, title, inputType, record, index, chi
     </td>
   );
 };
-const EmployeeList = () => {
+const CompanyList = () => {
 
   const dispatch = useDispatch();
-  const employeeList = useSelector((state) => state.employees)
+  const companiesList = useSelector((state) => state.companies)
   const [dataLoaded, setDataLoaded] = useState(false);
   let originData = []
 
   const fetchAccountantList = async () => {
           try { 
-              const data = await getAccountantList();
-              dispatch(setEmployeesList(data))
+              const data = await getCompaniesList();
+              dispatch(setCompaniesList(data))
+              console.log(data)
               setDataLoaded(true)
               originData = data.map((item) => ({
                 key: item.id, 
                 name: item.name,
-                first_surname: item.first_surname,
-                second_surname: item.second_surname ? item.second_surname : '',
-                reference: item.reference,
+                code: item.code,
                 address: item.address,
                 zip_code: item.zip_code, 
                 city: item.city, 
-                phone_number: item.phone_number, 
-                email: item.email}))
+                phone_number: item.phone, 
+                email: item.email,
+                contact_person: item.contact_person
+              }))
               setData(originData)
           } catch (error) {
               console.error('Error la lista de contables', error);
@@ -111,27 +112,13 @@ const EmployeeList = () => {
       dataIndex: 'name',
       width: '10%',
       editable: true,
-      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: 'Primer Apellido',
-      dataIndex: 'first_surname',
+      title: 'Código empresa',
+      dataIndex: 'code',
       width: '10%',
       editable: true,
-      sorter: (a, b) => a.first_surname.localeCompare(b.first_surname),
-    },
-    {
-      title: 'Segundo Apellido',
-      dataIndex: 'second_surname',
-      width: '10%',
-      editable: true,
-    },
-    {
-      title: 'Referencia',
-      dataIndex: 'reference',
-      width: '10%',
-      editable: true,
-      sorter: (a, b) => a.reference.localeCompare(b.reference),
+      sorter: (a, b) => a.code - b.code,
     },
     {
       title: 'Direccion',
@@ -160,6 +147,12 @@ const EmployeeList = () => {
     {
       title: 'Correo',
       dataIndex: 'email',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'Persona de contacto',
+      dataIndex: 'contact_person',
       width: '30%',
       editable: true,
     },
@@ -215,7 +208,7 @@ const EmployeeList = () => {
     <>
     <AppHeader />
     <div style={{padding: '15px'}}>
-    <Title level={3}>Lista de empleados</Title>
+    <Title level={3}>Lista de empresas</Title>
     <Form form={form} component={false}>
       <Table
         components={{
@@ -227,11 +220,10 @@ const EmployeeList = () => {
         dataSource={data}
         columns={mergedColumns}
         rowClassName="editable-row"
-        pagination={ false } 
       />
     </Form>
     </div>
     </>
   );
 };
-export default EmployeeList;
+export default CompanyList;

@@ -363,21 +363,23 @@ export default function GlobalPlan() {
     return (
         <>
             <AppHeader />
-            <Title level={3}>Año 2023</Title>
-            <Radio.Group value={quarter} buttonStyle="solid" onChange={toggleQuarter}>
-                <Radio.Button value={1}>T1</Radio.Button>
-                <Radio.Button value={2}>T2</Radio.Button>
-                <Radio.Button value={3}>T3</Radio.Button>
-                <Radio.Button value={4}>T4</Radio.Button>
-            </Radio.Group>
-            <Table 
-                columns={columns.map(customHeader)}
-                dataSource={dataSource}
-                pagination={ false }
-                scroll={{ x: 2500, y: 650 }}
-                bordered={'bordered'}
-                size='small'
-            />
+            <div style={{padding: '15px'}}>
+                <Title level={3}>Año 2023</Title>
+                <Radio.Group style={{paddingBottom: '10px'}} value={quarter} buttonStyle="solid" onChange={toggleQuarter}>
+                    <Radio.Button value={1}>T1</Radio.Button>
+                    <Radio.Button value={2}>T2</Radio.Button>
+                    <Radio.Button value={3}>T3</Radio.Button>
+                    <Radio.Button value={4}>T4</Radio.Button>
+                </Radio.Group>
+                <Table 
+                    columns={columns.map(customHeader)}
+                    dataSource={dataSource}
+                    pagination={ false }
+                    scroll={{ x: 2500, y: 650 }}
+                    bordered={'bordered'}
+                    size='small'
+                />
+            </div>
         </>
   );
 }

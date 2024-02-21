@@ -1,50 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
-import { useDispatch,useSelector } from 'react-redux';
-import { setCompaniesList } from "../../../redux/companiesSlice";
+import { Form, Popconfirm, Table, Typography } from 'antd';
+import { EditOutlined, DeleteOutlined, SaveOutlined, CloseOutlined } from '@ant-design/icons';
 import AppHeader from '../../Header/Header';
 import {Loading} from '../../Loading/Loading'
 import { getCompaniesList } from '../../../api/getData';
+import { EditableCell } from '../../EditableCell/EditableCell';
+
 
 const {Title} = Typography
 
-const EditableCell = ({ editing, dataIndex, title, inputType, record, index, children, ...restProps }) => {
-  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
-  return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{
-            margin: 0,
-          }}
-          rules={[
-            {
-              required: true,
-              message: `Por favor, introduce ${title}`,
-            },
-          ]}
-        >
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
-};
 const CompanyList = () => {
 
-  const dispatch = useDispatch();
-  const companiesList = useSelector((state) => state.companies)
-  const [dataLoaded, setDataLoaded] = useState(false);
-  let originData = []
+    const [form] = Form.useForm();
+    let originData = []
+    const [data, setData] = useState(originData);
+    const [editingKey, setEditingKey] = useState('');
+    const isEditing = (record) => record.key === editingKey;
+    const [dataLoaded, setDataLoaded] = useState(false);
 
   const fetchAccountantList = async () => {
           try { 
               const data = await getCompaniesList();
-              dispatch(setCompaniesList(data))
-              console.log(data)
               setDataLoaded(true)
               originData = data.map((item) => ({
                 key: item.id, 
@@ -68,118 +44,104 @@ const CompanyList = () => {
   },[]);
 
 
-  const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
-  const [editingKey, setEditingKey] = useState('');
-  const isEditing = (record) => record.key === editingKey;
   const edit = (record) => {
     form.setFieldsValue({
-      name: '',
-      age: '',
-      address: '',
-      ...record,
+        ...record,
     });
     setEditingKey(record.key);
-  };
-  const cancel = () => {
+};
+
+const cancel = () => {
     setEditingKey('');
-  };
-  const save = async (key) => {
+};
+
+const handleDelete = (key) => {
+    const newData = data.filter((item) => item.key !== key);
+    //Enviar la peticion para eliminar 
+    setData(newData);
+};
+
+const save = async (key) => {
     try {
-      const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey('');
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey('');
-      }
+        const row = await form.validateFields();
+        console.log('Row', row)
+        console.log('Data', data)
+        const newData = [...data];
+        const index = newData.findIndex((item) => key === item.key);
+        if (index > -1) {
+            const item = newData[index];
+            newData.splice(index, 1, {
+                ...item,
+                ...row,
+            });
+            setData(newData);
+            setEditingKey('');
+            //Enviar un PUT a la BBDD con el key: ID
+        } else {
+            newData.push(row);
+            setData(newData);
+            setEditingKey('');
+            //Enviar un POST a la BBDD para crear el nuevo registro
+          }
     } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
+          console.log('Validate Failed:', errInfo);
     }
-  };
+};
+
+
   const columns = [
-    {
-      title: 'Nombre',
-      dataIndex: 'name',
-      width: '10%',
-      editable: true,
+    { 
+      title: 'Nombre', dataIndex: 'name', width: '10%', editable: true, 
     },
     {
-      title: 'Código empresa',
-      dataIndex: 'code',
-      width: '10%',
-      editable: true,
+      title: 'Código empresa', dataIndex: 'code', width: '10%', editable: true,
       sorter: (a, b) => a.code - b.code,
     },
     {
-      title: 'Direccion',
-      dataIndex: 'address',
-      width: '15%',
-      editable: true,
+      title: 'Direccion', dataIndex: 'address', width: '15%', editable: true,
     },
     {
-      title: 'Ciudad',
-      dataIndex: 'city',
-      width: '10%',
-      editable: true,
+      title: 'Ciudad', dataIndex: 'city', width: '10%', editable: true,
     },
     {
-      title: 'Código Postal',
-      dataIndex: 'zip_code',
-      width: '10%',
-      editable: true,
+      title: 'Código Postal', dataIndex: 'zip_code', width: '10%', editable: true,
     },
     {
-      title: 'Teléfono',
-      dataIndex: 'phone_number',
-      width: '10%',
-      editable: true,
+      title: 'Teléfono', dataIndex: 'phone_number', width: '10%', editable: true,
     },
     {
-      title: 'Correo',
-      dataIndex: 'email',
-      width: '10%',
-      editable: true,
+      title: 'Correo', dataIndex: 'email', width: '10%', editable: true,
     },
     {
-      title: 'Persona de contacto',
-      dataIndex: 'contact_person',
-      width: '30%',
-      editable: true,
+      title: 'Persona de contacto', dataIndex: 'contact_person', width: '30%', editable: true,
     },
     {
-      title: 'Operación',
-      dataIndex: 'operation',
-      width: '30%',
+      title: 'Acción', dataIndex: 'operation', width: '30%',
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{
-                marginRight: 8,
-              }}
-            >
-              Guardar
-            </Typography.Link>
-            <Popconfirm title="¿Seguro que desea cancelar la operación?" onConfirm={cancel}>
-              <a>Cancelar</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Editar
-          </Typography.Link>
+          <span style={{ display: 'flex', justifyContent:'space-around'}}>
+                  <Typography.Link
+                    onClick={() => save(record.key)}
+                    style={{
+                      marginRight: 8,
+                    }}
+                  >
+                    <SaveOutlined />
+                  </Typography.Link>
+                  <Popconfirm title="¿Seguro que desea cancelar la operación?" onConfirm={cancel}>
+                    <a style={{color: 'red'}}><CloseOutlined /></a>
+                  </Popconfirm>
+                </span>
+              ) : (
+              <span style={{ display: 'flex', justifyContent:'space-around'}}>
+                <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+                    <EditOutlined />
+                </Typography.Link>
+                <Popconfirm title="¿Seguro que deseas eliminar esta empresa?" onConfirm={() => handleDelete(record.key)}>
+                  <a style={{color: 'red'}}><DeleteOutlined /></a>
+                </Popconfirm>
+              </span>
         );
       },
     },
@@ -208,20 +170,20 @@ const CompanyList = () => {
     <>
     <AppHeader />
     <div style={{padding: '15px'}}>
-    <Title level={3}>Lista de empresas</Title>
-    <Form form={form} component={false}>
-      <Table
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        bordered
-        dataSource={data}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-      />
-    </Form>
+      <Title level={3}>Lista de empresas</Title>
+      <Form form={form} component={false}>
+          <Table
+            components={{
+              body: {
+                cell: EditableCell,
+              },
+            }}
+            bordered
+            dataSource={data}
+            columns={mergedColumns}
+            rowClassName="editable-row"
+          />
+      </Form>
     </div>
     </>
   );

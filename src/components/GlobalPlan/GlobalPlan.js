@@ -4,7 +4,7 @@ import { EditOutlined, DeleteOutlined, SaveOutlined, CloseOutlined } from '@ant-
 import AppHeader from '../Header/Header';
 import { mapPlanToColumn } from '../../api/data'
 import { getGlobalPlan } from '../../api/getData';
-import {findElementsStartingWithHyphen} from '../../utils/utils'
+import {findElementsStartingWithHyphen, formatDate} from '../../utils/utils'
 import {Loading} from '../Loading/Loading'
 import { EditableCell } from '../EditableCell/EditableCell';
 
@@ -13,16 +13,16 @@ const { Title } = Typography;
 
 const oriColumns = [
     {
-        title: 'Fecha', dataIndex: 'date', key: 'date', width: 60, fixed: 'left', editable: true
+        title: 'Fecha', dataIndex: 'date', key: 'date', width: 90, fixed: 'left', editable: true, type: 'date'
     },
     {
-        title: 'Bloq.', dataIndex: 'block', key: 'block', width: 35, fixed: 'left', editable: true
+        title: 'Bloq.', dataIndex: 'block', key: 'block', width: 40, fixed: 'left', editable: true
     },
     {
-        title: 'Prior.', dataIndex: 'priority', key: 'priority', width: 35, fixed: 'left', editable: true
+        title: 'Prior.', dataIndex: 'priority', key: 'priority', width: 40, fixed: 'left', editable: true
     },
     {
-        title: 'Nº', dataIndex: 'company_number', key: 'company_number', width: 40, fixed: 'left', editable: true
+        title: 'Nº', dataIndex: 'company_number', key: 'company_number', width: 60, fixed: 'left', editable: true
     },
     {
         title: 'Empresa', dataIndex: 'company_name', key: 'company_name', width: 100, fixed: 'left', ellipsis: true, editable: true
@@ -35,32 +35,32 @@ const oriColumns = [
             title: 'Extractos', key: 'extracts',
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_ext', key: 'sit_ext', width: 30, editable: true,
+                    title: 'Sit.', dataIndex: 'sit_ext', key: 'sit_ext', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_ext', key: 'con_ext', width: 30,
+                    title: 'Con.', dataIndex: 'con_ext', key: 'con_ext', width: 60,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 }, 
                 {
-                    title: 'TE', dataIndex: 'te_ext', key: 'te_ext', width: 50,
+                    title: 'TE', dataIndex: 'te_ext', key: 'te_ext', width: 60,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_ext', key: 'ti_ext', width: 50,
+                    title: 'TI', dataIndex: 'ti_ext', key: 'ti_ext', width: 60,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_ext', key: 'tp_ext', width: 50,
+                    title: 'TP', dataIndex: 'tp_ext', key: 'tp_ext', width: 60,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },    
                 {
-                    title: 'Salida', dataIndex: 'exit_ext', key: 'exit_ext', width: 60,
+                    title: 'Salida', dataIndex: 'exit_ext', key: 'exit_ext', width: 90,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 }               
@@ -70,32 +70,32 @@ const oriColumns = [
             title: 'IVA', key: 'vat',
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_iva', key: 'sit_iva', width: 30,
+                    title: 'Sit.', dataIndex: 'sit_iva', key: 'sit_iva', width: 60,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_iva', key: 'con_iva', width: 30,
+                    title: 'Con.', dataIndex: 'con_iva', key: 'con_iva', width: 60,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 }, 
                 {
-                    title: 'TE', dataIndex: 'te_iva', key: 'te_iva', width: 50,
+                    title: 'TE', dataIndex: 'te_iva', key: 'te_iva', width: 60,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_iva', key: 'ti_iva', width: 50,
+                    title: 'TI', dataIndex: 'ti_iva', key: 'ti_iva', width: 60,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_iva', key: 'tp_iva', width: 50,
+                    title: 'TP', dataIndex: 'tp_iva', key: 'tp_iva', width: 60,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },    
                 {
-                    title: 'Salida', dataIndex: 'exit_iva', key: 'exit_iva', width: 60,
+                    title: 'Salida', dataIndex: 'exit_iva', key: 'exit_iva', width: 90,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 }                   
@@ -105,32 +105,32 @@ const oriColumns = [
             title: 'Inmovilizado', key: 'fixed assets',
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_inm', key: 'sit_inm', width: 30,
+                    title: 'Sit.', dataIndex: 'sit_inm', key: 'sit_inm', width: 60,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_inm', key: 'con_inm', width: 30,
+                    title: 'Con.', dataIndex: 'con_inm', key: 'con_inm', width: 60,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 }, 
                 {
-                    title: 'TE', dataIndex: 'te_inm', key: 'te_inm', width: 50,
+                    title: 'TE', dataIndex: 'te_inm', key: 'te_inm', width: 60,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_inm', key: 'ti_inm', width: 50,
+                    title: 'TI', dataIndex: 'ti_inm', key: 'ti_inm', width: 60,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_inm', key: 'tp_inm', width: 50,
+                    title: 'TP', dataIndex: 'tp_inm', key: 'tp_inm', width: 60,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },    
                 {
-                    title: 'Salida', dataIndex: 'exit_inm', key: 'exit_inm', width: 60,
+                    title: 'Salida', dataIndex: 'exit_inm', key: 'exit_inm', width: 90,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 }                 
@@ -140,39 +140,39 @@ const oriColumns = [
             title: 'Contable', key: 'accountable',
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_acc', key: 'sit_acc', width: 30,
+                    title: 'Sit.', dataIndex: 'sit_acc', key: 'sit_acc', width: 60,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_acc', key: 'con_acc', width: 30,
+                    title: 'Con.', dataIndex: 'con_acc', key: 'con_acc', width: 60,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 }, 
                 {
-                    title: 'TE', dataIndex: 'te_acc', key: 'te_acc', width: 50,
+                    title: 'TE', dataIndex: 'te_acc', key: 'te_acc', width: 60,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_acc', key: 'ti_acc', width: 50,
+                    title: 'TI', dataIndex: 'ti_acc', key: 'ti_acc', width: 60,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_acc', key: 'tp_acc', width: 50,
+                    title: 'TP', dataIndex: 'tp_acc', key: 'tp_acc', width: 60,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },    
                 {
-                    title: 'Salida', dataIndex: 'exit_acc', key: 'exit_acc', width: 60,
+                    title: 'Salida', dataIndex: 'exit_acc', key: 'exit_acc', width: 90,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''})
                 }                 
             ]
         },
     {
-        title: 'Fin.', dataIndex: 'ended', key: 'ended', width: 30,
+        title: 'Fin.', dataIndex: 'ended', key: 'ended', width: 40,
         onCell: (record) =>({
             className: record.ended === 'F' ? 'finished' : ''})
     },
@@ -183,7 +183,7 @@ const oriColumns = [
         title: 'Con_rev', dataIndex: 'accountant_revisor', key: 'accountant_revisor', width: 45
     },
     {
-        title: 'Con_rev_ant', dataIndex: 'prev_accountant_revisor', key: 'prev_accountant_revisor', width: 55
+        title: 'Con_rev_ant', dataIndex: 'prev_accountant_revisor', key: 'prev_accountant_revisor', width: 65
     },
 ];
 
@@ -217,7 +217,6 @@ export default function GlobalPlan() {
     
     const [quarter, setQuarter] = useState(3);
     const [dataLoaded, setDataLoaded] = useState(false);
-    const [dataSource, setDataSource] = useState();
     const [form] = Form.useForm();
     let originData = []
     const [data, setData] = useState(originData);
@@ -249,7 +248,7 @@ export default function GlobalPlan() {
                 <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
                     <EditOutlined />
                 </Typography.Link>
-                <Popconfirm title="¿Seguro que deseas eliminar esta empresa?" onConfirm={() => handleDelete(record.key)}>
+                <Popconfirm title="¿Seguro que deseas eliminar este plan?" onConfirm={() => handleDelete(record.key)}>
                   <a style={{color: 'red'}}><DeleteOutlined /></a>
                 </Popconfirm>
               </span>
@@ -267,7 +266,7 @@ export default function GlobalPlan() {
     const fetchData = async (quarter) => {
         try {
             const data = await getGlobalPlan(2023,quarter);
-            setDataSource(mapPlanToColumn(data))
+            setData(mapPlanToColumn(data))
             setDataLoaded(true)
         } catch (error) {
             console.error('Error al obtener los datos', error);
@@ -282,7 +281,14 @@ export default function GlobalPlan() {
           ...col,
           onCell: (record) => ({
             record,
-            inputType: col.dataIndex === 'age' ? 'number' : 'text',
+            inputType: (col.dataIndex === 'date' || col.dataIndex.startsWith('exit_') || col.dataIndex === 'ended') 
+                        ? 'date' 
+                        : ((col.dataIndex === 'code' || col.dataIndex.startsWith('t') || col.dataIndex === 'priority')
+                        ? 'number'
+                        : ((col.dataIndex === 'block' || col.dataIndex === 'xd' || col.dataIndex === 'ended')
+                        ? 'checkbox'
+                        : 'dropdown'
+                        )),
             dataIndex: col.dataIndex,
             title: col.title,
             editing: isEditing(record),
@@ -296,9 +302,24 @@ export default function GlobalPlan() {
     
     useEffect(()=>{
         findElementsStartingWithHyphen()
-    },[dataSource]);
+    },[data]);
 
     const edit = (record) => {
+        Object.keys(record).forEach(key => {
+            switch (key) {
+                case 'date':
+                case 'exit_ext':
+                case 'exit_iva':
+                case 'exit_inm':
+                case 'exit_acc':
+                case 'ended':
+                    record[key] = formatDate(record[key]);
+                    break;
+                default:
+                    break;
+            }
+        });
+
         form.setFieldsValue({
             ...record,
         });
@@ -318,8 +339,22 @@ export default function GlobalPlan() {
     const save = async (key) => {
         try {
             const row = await form.validateFields();
-            console.log('Row', row)
-            console.log('Data', data)
+
+            Object.keys(row).forEach(key => {
+                switch (key) {
+                    case 'date':
+                    case 'exit_ext':
+                    case 'exit_iva':
+                    case 'exit_inm':
+                    case 'exit_acc':
+                    case 'ended':
+                        row[key] = row[key].format('YYYY-MM-DD');
+                        break;
+                    default:
+                        break;
+                }
+            });
+
             const newData = [...data];
             const index = newData.findIndex((item) => key === item.key);
             if (index > -1) {
@@ -365,11 +400,11 @@ export default function GlobalPlan() {
                     },
                     }}
                     bordered
-                    dataSource={dataSource}
+                    dataSource={data}
                     columns={mergedColumns.map(customHeader)}
                     rowClassName="editable-row"
-                    pagination={ false }
-                    scroll={{ x: 2500, y: 650 }}
+                    pagination={{defaultPageSize: 12}}
+                    scroll={{ x: 3500, y: 650 }}
                     size='small'
                 />
                 </Form>

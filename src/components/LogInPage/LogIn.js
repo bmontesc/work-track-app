@@ -46,7 +46,7 @@ const LogIn = () => {
           marginBottom: '20px',
           padding:'20px'
         }}>
-            <img src='https://btasesores.com/images/logo_web_1.jpg'  />
+            <img src='https://btasesores.com/images/logo_web_1.jpg'  style={{borderRadius: '5px'}}/>
         </Header>
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection:'column'}}>
             <Title level={3}>Inicio de sesión</Title>

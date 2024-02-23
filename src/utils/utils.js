@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export function calculateDiference(h1,h2) {
     var hora1 = new Date("1970-01-01T" + h1 + "Z");
     var hora2 = new Date("1970-01-01T" + h2 + "Z");
@@ -30,4 +32,25 @@ export function findElementsStartingWithHyphen() {
         }
     });
 
+}
+
+export function formatDate(dateStr) {
+    const date = dayjs(dateStr);
+    const formattedDate = date.locale('en').$set({
+        $D: date.date(),
+        $H: 0,
+        $L: 'en',
+        $M: date.month() + 1,
+        $W: date.day(),
+        $d: new Date(dateStr + 'T00:00:00'),
+        $isDayjsObject: true,
+        $m: 0,
+        $ms: 0,
+        $s: 0,
+        $u: undefined,
+        $x: {},
+        $y: date.year()
+    });
+    console.log(formattedDate)
+    return formattedDate;
 }

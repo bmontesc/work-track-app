@@ -1,8 +1,14 @@
 import React from 'react';
-import { Form, Input, InputNumber } from 'antd';
+import { Checkbox, DatePicker, Form, Input, InputNumber, Select } from 'antd';
 
 export const EditableCell = ({ editing, dataIndex, title, inputType, record, index, children, ...restProps }) => {
-    const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+    const inputNode = inputType === 'date' 
+                      ? <DatePicker /> 
+                      : ( inputType === 'number' 
+                      ? <InputNumber /> 
+                      : ( inputType === 'checkbox' 
+                      ?  <Checkbox />
+                      : <Select />));
     return (
       <td {...restProps}>
         {editing ? (

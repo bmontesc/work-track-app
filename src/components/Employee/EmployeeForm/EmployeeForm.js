@@ -25,6 +25,10 @@ const EmployeeForm = () => {
         const {name, first_surname, second_surname, reference, address, zip_code, city, phone_number, email} = ((employeeList.find(emp => emp.id === Number(id))))
         initialValues = {name, first_surname, second_surname, reference, address, zip_code, city, phone_number, email}
     }
+
+    const onChange = (date, dateString) => {
+        console.log(date, dateString);
+      };
     
     
     return (

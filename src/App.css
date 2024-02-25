@@ -1,33 +1,41 @@
 #red-text {
-    color: red !important
+  color: red !important;
 }
 
 .extracts-header {
-    background-color: #7bc5fe !important
+  background-color: #7bc5fe !important;
 }
 
 .vat-header {
-    background-color: #a5e587 !important
+  background-color: #a5e587 !important;
 }
 
 .fixed-assets-header {
-    background-color: #ffd37d !important
+  background-color: #ffd37d !important;
 }
 
 .accountable-header {
-    background-color: #f99596 !important
+  background-color: #f99596 !important;
 }
 
 td.blocked {
-    background-color:#ffe7ba !important
+  background-color: #ffe7ba !important;
 }
 
 td.finished {
-    background-color:#cdeebd !important
+  background-color: #cdeebd !important;
 }
 
 h2.title {
-    text-align: center;
-    padding: 10px;
-    border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.recharts-legend-item-text,
+.recharts-text,
+.recharts-tooltip-wrapper {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

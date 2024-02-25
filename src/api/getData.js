@@ -186,3 +186,18 @@ export const getTasksPerComId = (comId) => {
         throw error;
     });
 }
+
+export const getEmployeeRanking = (quarter, year) => {
+    return fetch(`${apiUrl}/rankings/year/${year}/quarter/${quarter}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('No se pudieron obtener los datos del plan');
+            }
+            return response.json();
+    })
+    .then(data => data.map(item => ({name: item.name, Porcentaje: item.diff_percent_time})))
+    .catch(error => {
+        console.error('Error en la solicitud:', error.message);
+        throw error;
+    });
+}

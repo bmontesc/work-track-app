@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { Table, Radio, Typography, Form, Popconfirm } from 'antd';
+import { Table, Radio, Typography, Form, Popconfirm, InputNumber,Button } from 'antd';
 import { EditOutlined, DeleteOutlined, SaveOutlined, CloseOutlined } from '@ant-design/icons';
 import AppHeader from '../Header/Header';
 import { mapPlanToColumn } from '../../api/data'
@@ -32,7 +32,7 @@ const oriColumns = [
     },
 
         {
-            title: 'Extractos', key: 'extracts',
+            title: 'Extractos', key: 'extracts', 
             children: [
                 {
                     title: 'Sit.', dataIndex: 'sit_ext', key: 'sit_ext', width: 60, editable: true,
@@ -40,62 +40,62 @@ const oriColumns = [
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_ext', key: 'con_ext', width: 60,
+                    title: 'Con.', dataIndex: 'con_ext', key: 'con_ext', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 }, 
                 {
-                    title: 'TE', dataIndex: 'te_ext', key: 'te_ext', width: 60,
+                    title: 'TE', dataIndex: 'te_ext', key: 'te_ext', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_ext', key: 'ti_ext', width: 60,
+                    title: 'TI', dataIndex: 'ti_ext', key: 'ti_ext', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_ext', key: 'tp_ext', width: 60,
+                    title: 'TP', dataIndex: 'tp_ext', key: 'tp_ext', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },    
                 {
-                    title: 'Salida', dataIndex: 'exit_ext', key: 'exit_ext', width: 90,
+                    title: 'Salida', dataIndex: 'exit_ext', key: 'exit_ext', width: 90, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 }               
             ]
         },
         {
-            title: 'IVA', key: 'vat',
+            title: 'IVA', key: 'vat', 
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_iva', key: 'sit_iva', width: 60,
+                    title: 'Sit.', dataIndex: 'sit_iva', key: 'sit_iva', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_iva', key: 'con_iva', width: 60,
+                    title: 'Con.', dataIndex: 'con_iva', key: 'con_iva', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 }, 
                 {
-                    title: 'TE', dataIndex: 'te_iva', key: 'te_iva', width: 60,
+                    title: 'TE', dataIndex: 'te_iva', key: 'te_iva', width: 60, editable: true,
+                    onCell: (record) =>({
+                        className: record.sit_iva === 'B' ? 'blocked' : ''}),
+                },  
+                { 
+                    title: 'TI', dataIndex: 'ti_iva', key: 'ti_iva', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_iva', key: 'ti_iva', width: 60,
-                    onCell: (record) =>({
-                        className: record.sit_iva === 'B' ? 'blocked' : ''}),
-                },  
-                {
-                    title: 'TP', dataIndex: 'tp_iva', key: 'tp_iva', width: 60,
+                    title: 'TP', dataIndex: 'tp_iva', key: 'tp_iva', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },    
                 {
-                    title: 'Salida', dataIndex: 'exit_iva', key: 'exit_iva', width: 90,
+                    title: 'Salida', dataIndex: 'exit_iva', key: 'exit_iva', width: 90, editable: true,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 }                   
@@ -105,32 +105,32 @@ const oriColumns = [
             title: 'Inmovilizado', key: 'fixed assets',
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_inm', key: 'sit_inm', width: 60,
+                    title: 'Sit.', dataIndex: 'sit_inm', key: 'sit_inm', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_inm', key: 'con_inm', width: 60,
+                    title: 'Con.', dataIndex: 'con_inm', key: 'con_inm', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 }, 
                 {
-                    title: 'TE', dataIndex: 'te_inm', key: 'te_inm', width: 60,
+                    title: 'TE', dataIndex: 'te_inm', key: 'te_inm', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_inm', key: 'ti_inm', width: 60,
+                    title: 'TI', dataIndex: 'ti_inm', key: 'ti_inm', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_inm', key: 'tp_inm', width: 60,
+                    title: 'TP', dataIndex: 'tp_inm', key: 'tp_inm', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },    
                 {
-                    title: 'Salida', dataIndex: 'exit_inm', key: 'exit_inm', width: 90,
+                    title: 'Salida', dataIndex: 'exit_inm', key: 'exit_inm', width: 90, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 }                 
@@ -140,50 +140,50 @@ const oriColumns = [
             title: 'Contable', key: 'accountable',
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_acc', key: 'sit_acc', width: 60,
+                    title: 'Sit.', dataIndex: 'sit_acc', key: 'sit_acc', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_acc', key: 'con_acc', width: 60,
+                    title: 'Con.', dataIndex: 'con_acc', key: 'con_acc', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 }, 
-                {
-                    title: 'TE', dataIndex: 'te_acc', key: 'te_acc', width: 60,
+                { 
+                    title: 'TE', dataIndex: 'te_acc', key: 'te_acc', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_acc', key: 'ti_acc', width: 60,
+                    title: 'TI', dataIndex: 'ti_acc', key: 'ti_acc', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_acc', key: 'tp_acc', width: 60,
+                    title: 'TP', dataIndex: 'tp_acc', key: 'tp_acc', width: 60, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },    
                 {
-                    title: 'Salida', dataIndex: 'exit_acc', key: 'exit_acc', width: 90,
+                    title: 'Salida', dataIndex: 'exit_acc', key: 'exit_acc', width: 90, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''})
                 }                 
             ]
         },
     {
-        title: 'Fin.', dataIndex: 'ended', key: 'ended', width: 40,
+        title: 'Fin.', dataIndex: 'ended', key: 'ended', width: 40, editable: true,
         onCell: (record) =>({
             className: record.ended === 'F' ? 'finished' : ''})
     },
     {
-        title: 'Total', dataIndex: 'total_time', key: 'total_time', width: 60
+        title: 'Total', dataIndex: 'total_time', key: 'total_time', width: 60, editable: true,
     },
     {
-        title: 'Con_rev', dataIndex: 'accountant_revisor', key: 'accountant_revisor', width: 45
+        title: 'Con_rev', dataIndex: 'accountant_revisor', key: 'accountant_revisor', width: 45, editable: true,
     },
     {
-        title: 'Con_rev_ant', dataIndex: 'prev_accountant_revisor', key: 'prev_accountant_revisor', width: 65
+        title: 'Con_rev_ant', dataIndex: 'prev_accountant_revisor', key: 'prev_accountant_revisor', width: 65, editable: true,
     },
 ];
 
@@ -192,7 +192,7 @@ const customHeader = (column) => ({
     onHeaderCell: (column) => {
         if (column.key === 'extracts'){
             return {
-                className: 'extracts-header'
+                className: 'extracts-header',
             }
         }
         if (column.key === 'vat'){
@@ -216,6 +216,7 @@ const customHeader = (column) => ({
 export default function GlobalPlan() {
     
     const [quarter, setQuarter] = useState(3);
+    const [year, setYear] = useState(2023);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [form] = Form.useForm();
     let originData = []
@@ -257,15 +258,61 @@ export default function GlobalPlan() {
         },
     ]
 
+    const handleAdd = () => {
+        const newData = {
+            key: (new Date).getMilliseconds,
+            date: formatDate('2024-02-26'),
+            block: false,
+            priority: 0,
+            company_number: null,
+            company_name: null,
+            xd: false,
+            sit_ext: 'NP',
+            con_ext: null,
+            te_ext: null,
+            ti_ext: null,
+            tp_ext: null,
+            exit_ext: null,
+            sit_iva: 'NP',
+            con_iva: null,
+            te_iva: null,
+            ti_iva: null,
+            tp_iva: null,
+            exit_iva: null,
+            sit_inm: 'NP',
+            con_inm: null,
+            te_inm: null,
+            ti_inm: null,
+            tp_inm: null,
+            exit_inm: null,        
+            sit_acc: 'NP',      
+            con_acc: null,
+            te_acc: null,
+            ti_acc: null,
+            tp_acc: null,
+            exit_acc: null,
+            ended: null,
+            total_time: null,
+            accountant_revisor: '',
+            prev_accountant_revisor: '',
+        };
+        setData([...data, newData]);
+    };
+
+    const onFinish = (value) => {
+        setYear(value.year)
+    };
+      const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+      };
+
     const toggleQuarter = (e) => {
-        setDataLoaded(false)
         setQuarter(e.target.value)
-        fetchData(e.target.value)
     }
 
-    const fetchData = async (quarter) => {
+    const fetchData = async (quarter,year) => {
         try {
-            const data = await getGlobalPlan(2023,quarter);
+            const data = await getGlobalPlan(year,quarter);
             setData(mapPlanToColumn(data))
             setDataLoaded(true)
         } catch (error) {
@@ -277,7 +324,7 @@ export default function GlobalPlan() {
         if (!col.editable) {
           return col;
         }
-        return {
+        const mergedTopLevelCol = {
           ...col,
           onCell: (record) => ({
             record,
@@ -294,11 +341,38 @@ export default function GlobalPlan() {
             editing: isEditing(record),
           }),
         };
+
+        if (col.children) {
+            mergedTopLevelCol.children = col.children.map(childCol => {
+                if (!childCol.editable) {
+                    return childCol
+                }
+                return {
+                    ...childCol,
+                    onCell: record => ({
+                        record,
+                        inputType: (childCol.dataIndex === 'date' || childCol.dataIndex.startsWith('exit_') || childCol.dataIndex === 'ended') 
+                                    ? 'date' 
+                                    : ((childCol.dataIndex === 'code' || childCol.dataIndex.startsWith('t') || childCol.dataIndex === 'priority')
+                                    ? 'number'
+                                    : ((childCol.dataIndex === 'block' || childCol.dataIndex === 'xd' || childCol.dataIndex === 'ended')
+                                    ? 'checkbox'
+                                    : 'dropdown'
+                                    )),
+                        dataIndex: childCol.dataIndex,
+                        title: childCol.title,
+                        editing: isEditing(record),
+                        }),
+                    };
+                });   
+            }
+            return mergedTopLevelCol;  
     });
 
     useEffect(()=>{
-        fetchData(3)
-    },[]);
+        setDataLoaded(false)
+        fetchData(quarter, year)
+    },[quarter, year]);
     
     useEffect(()=>{
         findElementsStartingWithHyphen()
@@ -385,13 +459,48 @@ export default function GlobalPlan() {
         <>
             <AppHeader />
             <div style={{padding: '15px'}}>
-                <Title level={3}>Año 2023</Title>
+                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'baseline', justifyContent: 'flex-start'}}>
+
+            <Title level={3} style={{padding: '10px'}}>Año </Title><Form
+                name="basic"
+                initialValues={{year: year}}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+                size='large'
+            >
+                <Form.Item
+                name="year"
+                rules={[
+                    {
+                    required: true,
+                    message: 'Por favor, introduce el año',
+                    },
+                ]}
+                >
+                <InputNumber />
+                </Form.Item>
+                </Form>
+                
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                 <Radio.Group style={{paddingBottom: '10px'}} value={quarter} buttonStyle="solid" onChange={toggleQuarter}>
                     <Radio.Button value={1}>T1</Radio.Button>
                     <Radio.Button value={2}>T2</Radio.Button>
                     <Radio.Button value={3}>T3</Radio.Button>
                     <Radio.Button value={4}>T4</Radio.Button>
                 </Radio.Group>
+
+                <Button
+                    onClick={handleAdd}
+                    type="primary"
+                    style={{
+                    marginBottom: 16,
+                    }}
+                >
+                    Add a row
+                </Button>
+                </div>
                 <Form form={form} component={false}>
                 <Table
                     components={{

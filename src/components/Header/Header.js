@@ -21,6 +21,7 @@ const items = [
     getItem((<Link to={'/companies/list'}>Lista de empresas</Link>), 6),
     getItem((<Link to={'/companies/form/new'}>Crear nueva empresa</Link>), 7),
   ]),
+  getItem((<Link to={'/dashboard'}>Estadísticas</Link>), 8),
 ];
 
 const AppHeader = () => {

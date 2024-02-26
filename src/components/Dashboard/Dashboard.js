@@ -30,6 +30,8 @@ const data = [
 export const Dashboard = () => {
 
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [quarter, setQuarter] = useState(3);
+  const [year, setYear] = useState(2023);
   const [employeeData, setEmployeeData] = useState([]);
   let dataMin
   let dataMax
@@ -44,14 +46,9 @@ export const Dashboard = () => {
     }
   };
 
-  useEffect(() => (
-    fetchData(3, 2023)
-  ), [])
-
-  useEffect (()=> {
-    dataMax = Math.max(...employeeData.map(item => item.Porcentaje)) 
-    dataMin = Math.min(...employeeData.map(item => item.Porcentaje)) 
-  }, [employeeData])
+  useEffect(() => {
+    fetchData(quarter, year)
+  }, [quarter, year])
 
   if (!dataLoaded) {
     return <Loading />;

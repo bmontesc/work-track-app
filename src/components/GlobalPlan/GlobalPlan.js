@@ -32,7 +32,7 @@ const oriColumns = [
     },
 
         {
-            title: 'Extractos', key: 'extracts', 
+            title: 'Extractos', key: 'extracts', editable: true,
             children: [
                 {
                     title: 'Sit.', dataIndex: 'sit_ext', key: 'sit_ext', width: 60, editable: true,
@@ -67,7 +67,7 @@ const oriColumns = [
             ]
         },
         {
-            title: 'IVA', key: 'vat', 
+            title: 'IVA', key: 'vat', editable: true,
             children: [
                 {
                     title: 'Sit.', dataIndex: 'sit_iva', key: 'sit_iva', width: 60, editable: true,
@@ -102,7 +102,7 @@ const oriColumns = [
             ]
         },
         {
-            title: 'Inmovilizado', key: 'fixed assets',
+            title: 'Inmovilizado', key: 'fixed assets', editable: true,
             children: [
                 {
                     title: 'Sit.', dataIndex: 'sit_inm', key: 'sit_inm', width: 60, editable: true,
@@ -137,7 +137,7 @@ const oriColumns = [
             ]
         },
         {
-            title: 'Contable', key: 'accountable',
+            title: 'Contable', key: 'accountable', editable: true,
             children: [
                 {
                     title: 'Sit.', dataIndex: 'sit_acc', key: 'sit_acc', width: 60, editable: true,
@@ -260,8 +260,8 @@ export default function GlobalPlan() {
 
     const handleAdd = () => {
         const newData = {
-            key: (new Date).getMilliseconds,
-            date: formatDate('2024-02-26'),
+            key: new Date,
+            date: '',
             block: false,
             priority: 0,
             company_number: null,
@@ -498,7 +498,7 @@ export default function GlobalPlan() {
                     marginBottom: 16,
                     }}
                 >
-                    Add a row
+                    Añadir un fila
                 </Button>
                 </div>
                 <Form form={form} component={false}>

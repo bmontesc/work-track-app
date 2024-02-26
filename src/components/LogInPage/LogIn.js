@@ -86,7 +86,7 @@ const LogIn = () => {
 
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     <Button style={{margin: '10px'}} type="primary" htmlType="submit" loading={isLoading}>
-                        Submit
+                        Enviar
                     </Button>
                 </Form.Item>
             </Form>

@@ -28,8 +28,8 @@ export const getGlobalPlan = (year, quarter) => {
                             type: object.type,
                             status: object.status === 'Not Planned' ? 'NP' : (object.status === 'Blocked' ? 'B' : ''),
                             accountant_code: object.reference,
-                            estimated_time: object.estimated_time !== '00:00:00' ? object.estimated_time : '',
-                            used_time: object.used_time !== '00:00:00' ? object.used_time : '',
+                            estimated_time: object.estimated_time !== '00:00:00' ? (`${object.estimated_time.split(':')[0]}:${object.estimated_time.split(':')[1]}`) : '',
+                            used_time: object.used_time !== '00:00:00' ? (`${object.used_time.split(':')[0]}:${object.used_time.split(':')[1]}`) : '',
                             diference: object.used_time !== '00:00:00' ? calculateDiference(object.estimated_time, object.used_time) : '',
                             finish_date: object.finish_date !== null ? object.finish_date.split('T')[0] : ''
                         }
@@ -42,8 +42,8 @@ export const getGlobalPlan = (year, quarter) => {
                     type: object.type,
                     status: object.status === 'Not Planned' ? 'NP' : (object.status === 'Blocked' ? 'B' : ''),
                     accountant_code: object.reference,
-                    estimated_time: object.estimated_time !== '00:00:00' ? object.estimated_time : '',
-                    used_time: object.used_time !== '00:00:00' ? object.used_time : '',
+                    estimated_time: object.estimated_time !== '00:00:00' ? (`${object.estimated_time.split(':')[0]}:${object.estimated_time.split(':')[1]}`) : '',
+                    used_time: object.used_time !== '00:00:00' ? (`${object.used_time.split(':')[0]}:${object.used_time.split(':')[1]}`) : '',
                     diference: object.used_time !== '00:00:00' ? calculateDiference(object.estimated_time, object.used_time) : '',
                     finish_date: object.finish_date !== null ? object.finish_date.split('T')[0] : ''
                 }

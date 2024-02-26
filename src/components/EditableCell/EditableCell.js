@@ -5,7 +5,7 @@ export const EditableCell = ({ editing, dataIndex, title, inputType, record, ind
     const inputNode = inputType === 'date' 
                       ? <DatePicker /> 
                       : ( inputType === 'number' 
-                      ? <InputNumber /> 
+                      ? <InputNumber style={{ width: 45 }}/> 
                       : ( inputType === 'checkbox' 
                       ?  <Checkbox />
                       : <Select />));
@@ -15,12 +15,12 @@ export const EditableCell = ({ editing, dataIndex, title, inputType, record, ind
           <Form.Item
             name={dataIndex}
             style={{ margin: 0 }}
-            rules={[
-              {
-                required: true,
-                message: `Por favor, introduce ${title}`,
-              },
-            ]}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: `Por favor, introduce ${title}`,
+            //   },
+            // ]}
           >
             {inputNode}
           </Form.Item>

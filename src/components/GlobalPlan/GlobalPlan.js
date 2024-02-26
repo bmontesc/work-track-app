@@ -14,7 +14,11 @@ const { Title } = Typography;
 const oriColumns = [
     {
         title: 'Fecha', dataIndex: 'date', key: 'date', width: 90, fixed: 'left', editable: true, type: 'date',
-        sorter: (a, b) => a.date - b.date,
+        sorter: (a, b) => {
+            const dateA = new Date(a.date)
+            const dateB = new Date(b.date)
+            return dateA - dateB
+        },
     },
     {
         title: 'Bloq.', dataIndex: 'block', key: 'block', width: 40, fixed: 'left', editable: true
@@ -40,27 +44,27 @@ const oriColumns = [
             title: 'Extractos', key: 'extracts', editable: true,
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_ext', key: 'sit_ext', width: 60, editable: true,
+                    title: 'Sit.', dataIndex: 'sit_ext', key: 'sit_ext', width: 50, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_ext', key: 'con_ext', width: 60, editable: true,
+                    title: 'Con.', dataIndex: 'con_ext', key: 'con_ext', width: 50, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 }, 
                 {
-                    title: 'TE', dataIndex: 'te_ext', key: 'te_ext', width: 60, editable: true,
+                    title: 'TE', dataIndex: 'te_ext', key: 'te_ext', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_ext', key: 'ti_ext', width: 60, editable: true,
+                    title: 'TI', dataIndex: 'ti_ext', key: 'ti_ext', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_ext', key: 'tp_ext', width: 60, editable: true,
+                    title: 'TP', dataIndex: 'tp_ext', key: 'tp_ext', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_ext === 'B' ? 'blocked' : ''}),
                 },    
@@ -75,27 +79,27 @@ const oriColumns = [
             title: 'IVA', key: 'vat', editable: true,
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_iva', key: 'sit_iva', width: 60, editable: true,
+                    title: 'Sit.', dataIndex: 'sit_iva', key: 'sit_iva', width: 50, editable: true,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_iva', key: 'con_iva', width: 60, editable: true,
+                    title: 'Con.', dataIndex: 'con_iva', key: 'con_iva', width: 50, editable: true,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 }, 
                 {
-                    title: 'TE', dataIndex: 'te_iva', key: 'te_iva', width: 60, editable: true,
+                    title: 'TE', dataIndex: 'te_iva', key: 'te_iva', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },  
                 { 
-                    title: 'TI', dataIndex: 'ti_iva', key: 'ti_iva', width: 60, editable: true,
+                    title: 'TI', dataIndex: 'ti_iva', key: 'ti_iva', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_iva', key: 'tp_iva', width: 60, editable: true,
+                    title: 'TP', dataIndex: 'tp_iva', key: 'tp_iva', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_iva === 'B' ? 'blocked' : ''}),
                 },    
@@ -110,27 +114,27 @@ const oriColumns = [
             title: 'Inmovilizado', key: 'fixed assets', editable: true,
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_inm', key: 'sit_inm', width: 60, editable: true,
+                    title: 'Sit.', dataIndex: 'sit_inm', key: 'sit_inm', width: 50, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_inm', key: 'con_inm', width: 60, editable: true,
+                    title: 'Con.', dataIndex: 'con_inm', key: 'con_inm', width: 50, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 }, 
                 {
-                    title: 'TE', dataIndex: 'te_inm', key: 'te_inm', width: 60, editable: true,
+                    title: 'TE', dataIndex: 'te_inm', key: 'te_inm', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_inm', key: 'ti_inm', width: 60, editable: true,
+                    title: 'TI', dataIndex: 'ti_inm', key: 'ti_inm', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_inm', key: 'tp_inm', width: 60, editable: true,
+                    title: 'TP', dataIndex: 'tp_inm', key: 'tp_inm', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_inm === 'B' ? 'blocked' : ''}),
                 },    
@@ -145,27 +149,27 @@ const oriColumns = [
             title: 'Contable', key: 'accountable', editable: true,
             children: [
                 {
-                    title: 'Sit.', dataIndex: 'sit_acc', key: 'sit_acc', width: 60, editable: true,
+                    title: 'Sit.', dataIndex: 'sit_acc', key: 'sit_acc', width: 50, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },
                 {
-                    title: 'Con.', dataIndex: 'con_acc', key: 'con_acc', width: 60, editable: true,
+                    title: 'Con.', dataIndex: 'con_acc', key: 'con_acc', width: 50, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 }, 
                 { 
-                    title: 'TE', dataIndex: 'te_acc', key: 'te_acc', width: 60, editable: true,
+                    title: 'TE', dataIndex: 'te_acc', key: 'te_acc', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TI', dataIndex: 'ti_acc', key: 'ti_acc', width: 60, editable: true,
+                    title: 'TI', dataIndex: 'ti_acc', key: 'ti_acc', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },  
                 {
-                    title: 'TP', dataIndex: 'tp_acc', key: 'tp_acc', width: 60, editable: true,
+                    title: 'TP', dataIndex: 'tp_acc', key: 'tp_acc', width: 40, editable: true,
                     onCell: (record) =>({
                         className: record.sit_acc === 'B' ? 'blocked' : ''}),
                 },    
@@ -517,8 +521,9 @@ export default function GlobalPlan() {
                     dataSource={data}
                     columns={mergedColumns.map(customHeader)}
                     rowClassName="editable-row"
-                    pagination={{defaultPageSize: 12}}
-                    scroll={{ x: 3500, y: 650 }}
+                    // pagination={{defaultPageSize: 12}}
+                    pagination={false}
+                    scroll={{ x: 3250, y: 500 }}
                     size='small'
                 />
                 </Form>

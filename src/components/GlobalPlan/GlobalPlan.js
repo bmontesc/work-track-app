@@ -13,7 +13,8 @@ const { Title } = Typography;
 
 const oriColumns = [
     {
-        title: 'Fecha', dataIndex: 'date', key: 'date', width: 90, fixed: 'left', editable: true, type: 'date'
+        title: 'Fecha', dataIndex: 'date', key: 'date', width: 90, fixed: 'left', editable: true, type: 'date',
+        sorter: (a, b) => a.date - b.date,
     },
     {
         title: 'Bloq.', dataIndex: 'block', key: 'block', width: 40, fixed: 'left', editable: true
@@ -22,10 +23,14 @@ const oriColumns = [
         title: 'Prior.', dataIndex: 'priority', key: 'priority', width: 40, fixed: 'left', editable: true
     },
     {
-        title: 'Nº', dataIndex: 'company_number', key: 'company_number', width: 60, fixed: 'left', editable: true
+        title: 'Nº', dataIndex: 'company_number', key: 'company_number', width: 60, fixed: 'left', editable: true,
+        sorter: (a, b) => a.company_number - b.company_number,
+
     },
     {
-        title: 'Empresa', dataIndex: 'company_name', key: 'company_name', width: 100, fixed: 'left', ellipsis: true, editable: true
+        title: 'Empresa', dataIndex: 'company_name', key: 'company_name', width: 100, fixed: 'left', ellipsis: true, editable: true,
+        sorter: (a, b) => a.company_name.localeCompare(b.company_name),
+        
     },
     {
         title: 'XD', dataIndex: 'xd', key: 'xd', width: 30, fixed: 'left', editable: true
